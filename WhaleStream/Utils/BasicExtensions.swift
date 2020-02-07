@@ -15,12 +15,20 @@ extension UIColor {
     static func mainBlue() -> UIColor {
         return UIColor.rgb(red: 17, green: 154, blue: 237)
     }
+    
+    static var random: UIColor {
+        return UIColor(red: .random(in: 0...1),
+                       green: .random(in: 0...1),
+                       blue: .random(in: 0...1),
+                       alpha: 1.0)
+    }
 
     static let purpleBlue = UIColor.rgb(red: 81, green: 97, blue: 210)
     static let purplePink = UIColor.rgb(red: 251, green: 200, blue: 247)
     static let lightPurple = UIColor.rgb(red: 229, green: 226, blue: 250)
     static let hotPink = UIColor.rgb(red: 255, green: 49, blue: 139)
     static let testColor = #colorLiteral(red: 0.8980392157, green: 0.8862745098, blue: 0.9803921569, alpha: 1)
+    
 }
 
 struct AnchoredConstraints {

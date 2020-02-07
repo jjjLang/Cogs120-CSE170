@@ -9,7 +9,7 @@
 import UIKit
 
 class AddClassCell: UICollectionViewCell {
-
+    
     var course: Course? {
         didSet {
 //            selectClassButton.setTitle(course?.name, for: .normal)
@@ -70,10 +70,16 @@ class AddClassCell: UICollectionViewCell {
         super.init(frame: frame)
 //        backgroundColor = .white
         
+
+        
         let view = UIView()
         
         addSubview(view)
+        
         view.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        
+
+        
         view.addSubview(selectClassLabel)
         
         
@@ -82,8 +88,15 @@ class AddClassCell: UICollectionViewCell {
 //        vertiStackView.setupShadow(opacity: 0.1, radius: 8, offset: .init(width: 0, height: 8), color: .lightGray)
         
             
-        selectClassLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        selectClassLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
         view.setupShadow(opacity: 1, radius: 8, offset: .init(width: 0, height: 8), color: .gray)
+        
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.random
+        colorView.clipsToBounds = true
+        selectClassLabel.addSubview(colorView)
+        colorView.anchor(top: selectClassLabel.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 7))
+        
 //        addSubview(selectClassProf)
 //        selectClassProf.anchor(top: selectClassLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
 

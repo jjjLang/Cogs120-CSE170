@@ -12,9 +12,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellID = "cellId"
     let tableView = UITableView()
     
+    let lightYellow = UIColor.rgb(red: 255, green: 255, blue: 237)
+    
     fileprivate lazy var laughButton: EmojiButton = {
         let button = EmojiButton(type: .system)
-        button.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 237)
+        button.backgroundColor = lightYellow
         button.setTitle("😄", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         button.addTarget(self, action: #selector(handleTapEmoji), for: .touchUpInside)
@@ -22,7 +24,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }()
     fileprivate lazy var smileButton: EmojiButton = {
         let button = EmojiButton(type: .system)
-        button.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 237)
+        button.backgroundColor = lightYellow
         button.setTitle("😊", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
 
@@ -31,7 +33,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }()
     fileprivate lazy var sadButton: EmojiButton = {
         let button = EmojiButton(type: .system)
-        button.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 237)
+        button.backgroundColor = lightYellow
         button.setTitle("☹️", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
 
@@ -40,14 +42,35 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }()
     
     @objc fileprivate func handleTapEmoji(button: UIButton) {
-//        switch button {
-//        case laughButton:
-//
-//        case smileButton:
-//
-//        default:
-//
-//        }
+        switch button {
+        case laughButton:
+            if laughButton.backgroundColor == lightYellow {
+                laughButton.backgroundColor = UIColor.yellow
+                smileButton.backgroundColor = lightYellow
+                sadButton.backgroundColor = lightYellow
+            } else {
+                laughButton.backgroundColor = lightYellow
+            }
+            
+        case smileButton:
+            if smileButton.backgroundColor == lightYellow {
+                smileButton.backgroundColor = UIColor.yellow
+                laughButton.backgroundColor = lightYellow
+                sadButton.backgroundColor = lightYellow
+
+            } else {
+                smileButton.backgroundColor = lightYellow
+            }
+        default:
+            if sadButton.backgroundColor == lightYellow {
+                sadButton.backgroundColor = UIColor.yellow
+                laughButton.backgroundColor = lightYellow
+                smileButton.backgroundColor = lightYellow
+
+            } else {
+                sadButton.backgroundColor = lightYellow
+            }
+        }
     }
     
     lazy var emojiStackView : UIStackView  = {
@@ -90,7 +113,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let historyCommentInstruction = UILabel(text: "View you own history of comments", font: .systemFont(ofSize: 20), numberOfLines: 0)
 
     
-    let viewFullButton = UIButton(title: "View Full", titleColor: .black)
+    let viewFullButton : UIButton = {
+       let b = UIButton(title: "View Full", titleColor: .white)
+        b.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        b.backgroundColor = .blue
+        b.layer.cornerRadius = 8
+        b.clipsToBounds = true
+        return b
+    }()
+    
+    
     
     lazy var overallStackView : UIStackView = {
         let sv = UIStackView(arrangedSubviews: [
@@ -139,12 +171,26 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         view.addSubview(viewFullButton)
-        viewFullButton.anchor(top: tableView.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 8, right: 16), size: .init(width: 120, height: 50))
+        viewFullButton.anchor(top: tableView.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 8, right: 16), size: .init(width: 180, height: 50))
         
         
         
         
 //        overallStackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
+    }
+    
+    
+    fileprivate func setupTapGesture() {
+        //add recignizer on view, wont trigger on ui elements such as buttons and textfields
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss)))
+    }
+    //dismiss keyboard
+    @objc fileprivate func handleTapDismiss() {
+        view.endEditing(true)
+        //scroll view scrolls back down so view beccomes original
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity
+        })
     }
     
     
@@ -154,28 +200,33 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        tableView.withBorder(width: 3, color: .black)
+        tableView.withBorder(width: 2, color: .lightGray)
         tableView.layer.cornerRadius = 10
         
         setupUI()
+        setupTapGesture()
     }
     
     
 
     
-    var comments = ["Why does 1+1 = 3? That was counterintuitive for me.", "Okay, Gotta!"]
+    var comments = ["Why does 1+1 = 3? That was counterintuitive for me.", "Okay, Gotta!", "I love your shirt!", "Could you speak slower?", "Your handwriting is hard to read, what is the second word of the upper-right sentence on the blackboard?"]
+    var commentsTime = ["2:05PM", "2:04PM", "2:03PM", "2:03PM", "2:00PM"]
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 5
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UITableViewCell
-        cell.textLabel?.text = comments[indexPath.row]
+        let attiText = NSMutableAttributedString(string: commentsTime[indexPath.row] , attributes: [.foregroundColor : UIColor.blue])
+        attiText.append(NSMutableAttributedString(string: " \(comments[indexPath.row])"))
+        cell.textLabel?.attributedText = attiText
         cell.textLabel?.numberOfLines = 0
         return cell
     }

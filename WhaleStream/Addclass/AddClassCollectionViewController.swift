@@ -53,8 +53,14 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
             handleAddSearch()
             return
         }
-        let home = HomeController()
+        if indexPath.item == 0 {
+            let home = HomeController()
+            navigationController?.pushViewController(home, animated: true)
+            return
+        }
+        let home = InstructorHomeController()
         navigationController?.pushViewController(home, animated: true)
+
     }
     
     func selectCourse(course: Course) {

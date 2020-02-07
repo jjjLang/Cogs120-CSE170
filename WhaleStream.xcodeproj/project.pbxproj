@@ -14,6 +14,7 @@
 		E4368A6123E7FF5F00C56511 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4368A6023E7FF5F00C56511 /* Assets.xcassets */; };
 		E4368A6423E7FF5F00C56511 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4368A6223E7FF5F00C56511 /* LaunchScreen.storyboard */; };
 		E4368A6C23E800B500C56511 /* AddClassCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */; };
+		E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */; };
 		E4BCD7B823EBA9EF0065B6A7 /* CustomAddClassLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */; };
 		E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */; };
 		E4BCD7BD23EBC6020065B6A7 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */; };
@@ -46,6 +47,7 @@
 		E4368A6323E7FF5F00C56511 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4368A6523E7FF5F00C56511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassCollectionViewController.swift; sourceTree = "<group>"; };
+		E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorHomeController.swift; sourceTree = "<group>"; };
 		E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddClassLabel.swift; sourceTree = "<group>"; };
 		E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */,
 				E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */,
 				E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */,
+				E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				E4D5FE1423E9F5C900E9C7AE /* CustomImageView.swift in Sources */,
 				E4D5FE1C23E9F9FC00E9C7AE /* Course.swift in Sources */,
 				E4D5FDF023E9F2AC00E9C7AE /* AddClassCell.swift in Sources */,
+				E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */,
 				E4D5FE1923E9F5C900E9C7AE /* BasicExtensions.swift in Sources */,
 				E4D5FE1E23EA061200E9C7AE /* ClassSearchController.swift in Sources */,
 				E4368A6C23E800B500C56511 /* AddClassCollectionViewController.swift in Sources */,
