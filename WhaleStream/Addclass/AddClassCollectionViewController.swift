@@ -30,6 +30,9 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
 
     
     func didFinishLoggingIn() {
+        self.courses = [Course]()
+        self.user = nil
+        collectionView.reloadData()
         Firestore.firestore().fetchCurrentUser { (user, err) in
             if let err = err {
                 return
@@ -37,7 +40,6 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
             self.user = user
             let view = UILabel(text: "Hi, \(user?.name ?? "")", font: UIFont.systemFont(ofSize: 26))
             self.navigationItem.titleView = view
-            self.courses = [Course]()
             self.collectionView.reloadData()
             self.fetchClasses()
 
@@ -59,7 +61,9 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.courses = [Course]()
+        self.user = nil
+        collectionView.reloadData()
         Firestore.firestore().fetchCurrentUser { (user, err) in
             if let err = err {
                 return
@@ -103,7 +107,8 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AddClassCell
         if indexPath.item == courses.count {
-
+             let attributedText = NSMutableAttributedString(string: "Add Class", attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
+            cell.selectClassLabel.attributedText = attributedText
         } else {
             cell.course = courses[indexPath.item]
         }
