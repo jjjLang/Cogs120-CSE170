@@ -13,7 +13,7 @@ class AddClassCell: UICollectionViewCell {
     var course: Course? {
         didSet {
 //            selectClassButton.setTitle(course?.name, for: .normal)
-            let attributedText = NSMutableAttributedString(string: course?.name ?? "Class name", attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
+            let attributedText = NSMutableAttributedString(string: course?.className ?? "Class name", attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
             attributedText.append(NSMutableAttributedString(string: "\n\(course?.prof ?? "\nInstructor name")", attributes: [.font: UIFont.systemFont(ofSize: 26)]))
             selectClassLabel.attributedText = attributedText
 

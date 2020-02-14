@@ -13,7 +13,7 @@ class ClassSearchCell: UICollectionViewCell {
     
     var course: Course? {
         didSet {
-            courseNameLabel.text = course?.name
+            courseNameLabel.text = "\(course?.className ?? "") \(course?.prof ?? "")"
         }
     }
     

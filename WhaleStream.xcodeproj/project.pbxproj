@@ -8,17 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		5E412CB5702AEB3A1EAB02EC /* Pods_WhaleStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D50ACC4461A456C598EB5B /* Pods_WhaleStream.framework */; };
+		E40CB20423F51F7900A30FA7 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CB20323F51F7900A30FA7 /* RegisterController.swift */; };
+		E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */; };
+		E40CB20823F522B100A30FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */; };
 		E4368A5823E7FF5600C56511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A5723E7FF5600C56511 /* AppDelegate.swift */; };
 		E4368A5A23E7FF5600C56511 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A5923E7FF5600C56511 /* SceneDelegate.swift */; };
 		E4368A5F23E7FF5600C56511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4368A5D23E7FF5600C56511 /* Main.storyboard */; };
 		E4368A6123E7FF5F00C56511 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4368A6023E7FF5F00C56511 /* Assets.xcassets */; };
 		E4368A6423E7FF5F00C56511 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4368A6223E7FF5F00C56511 /* LaunchScreen.storyboard */; };
 		E4368A6C23E800B500C56511 /* AddClassCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */; };
+		E436A84D23F5CFA9001D2A6A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E436A84C23F5CFA9001D2A6A /* User.swift */; };
 		E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */; };
 		E4BCD7B823EBA9EF0065B6A7 /* CustomAddClassLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */; };
 		E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */; };
 		E4BCD7BD23EBC6020065B6A7 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */; };
 		E4BCD7BF23EBD6D20065B6A7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */; };
+		E4C8084923F644DF006E8162 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084823F644DF006E8162 /* LoginController.swift */; };
+		E4C8084B23F6451F006E8162 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084A23F6451F006E8162 /* LoginViewModel.swift */; };
 		E4D5FDF023E9F2AC00E9C7AE /* AddClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FDEF23E9F2AC00E9C7AE /* AddClassCell.swift */; };
 		E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE0623E9F5C800E9C7AE /* FirebaseExtensions.swift */; };
 		E4D5FE1123E9F5C900E9C7AE /* CustomImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE0723E9F5C800E9C7AE /* CustomImagePickerController.swift */; };
@@ -39,6 +45,9 @@
 		11A5C4E14FA4B45BE5D100DC /* Pods-WhaleStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhaleStream.debug.xcconfig"; path = "Target Support Files/Pods-WhaleStream/Pods-WhaleStream.debug.xcconfig"; sourceTree = "<group>"; };
 		37D50ACC4461A456C598EB5B /* Pods_WhaleStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhaleStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A8A72260263A1F16B0FE5B /* Pods-WhaleStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhaleStream.release.xcconfig"; path = "Target Support Files/Pods-WhaleStream/Pods-WhaleStream.release.xcconfig"; sourceTree = "<group>"; };
+		E40CB20323F51F7900A30FA7 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4368A5423E7FF5600C56511 /* WhaleStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhaleStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4368A5723E7FF5600C56511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4368A5923E7FF5600C56511 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,11 +56,14 @@
 		E4368A6323E7FF5F00C56511 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4368A6523E7FF5F00C56511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassCollectionViewController.swift; sourceTree = "<group>"; };
+		E436A84C23F5CFA9001D2A6A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorHomeController.swift; sourceTree = "<group>"; };
 		E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddClassLabel.swift; sourceTree = "<group>"; };
 		E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
 		E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		E4C8084823F644DF006E8162 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E4C8084A23F6451F006E8162 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E4D5FDEF23E9F2AC00E9C7AE /* AddClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassCell.swift; sourceTree = "<group>"; };
 		E4D5FE0623E9F5C800E9C7AE /* FirebaseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseExtensions.swift; sourceTree = "<group>"; };
 		E4D5FE0723E9F5C800E9C7AE /* CustomImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImagePickerController.swift; sourceTree = "<group>"; };
@@ -80,6 +92,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E40CB20223F51F6400A30FA7 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				E40CB20323F51F7900A30FA7 /* RegisterController.swift */,
+				E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */,
+				E4C8084823F644DF006E8162 /* LoginController.swift */,
+				E4C8084A23F6451F006E8162 /* LoginViewModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		E4368A4B23E7FF5500C56511 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +124,7 @@
 		E4368A5623E7FF5600C56511 /* WhaleStream */ = {
 			isa = PBXGroup;
 			children = (
+				E40CB20223F51F6400A30FA7 /* Register */,
 				E4BCD7B923EBC3270065B6A7 /* Home */,
 				E4D5FE1A23E9F9E900E9C7AE /* Model */,
 				E4D5FDEE23E9F28500E9C7AE /* Addclass */,
@@ -110,6 +134,7 @@
 				E4368A6023E7FF5F00C56511 /* Assets.xcassets */,
 				E4368A6223E7FF5F00C56511 /* LaunchScreen.storyboard */,
 				E4368A6523E7FF5F00C56511 /* Info.plist */,
+				E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */,
 				E4D5FDF123E9F50F00E9C7AE /* Utils */,
 			);
 			path = WhaleStream;
@@ -159,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */,
+				E436A84C23F5CFA9001D2A6A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4368A6423E7FF5F00C56511 /* LaunchScreen.storyboard in Resources */,
+				E40CB20823F522B100A30FA7 /* GoogleService-Info.plist in Resources */,
 				E4368A6123E7FF5F00C56511 /* Assets.xcassets in Resources */,
 				E4368A5F23E7FF5600C56511 /* Main.storyboard in Resources */,
 			);
@@ -298,8 +325,12 @@
 				E4D5FE1523E9F5C900E9C7AE /* Bindable.swift in Sources */,
 				E4D5FE1123E9F5C900E9C7AE /* CustomImagePickerController.swift in Sources */,
 				E4D5FE1423E9F5C900E9C7AE /* CustomImageView.swift in Sources */,
+				E4C8084923F644DF006E8162 /* LoginController.swift in Sources */,
+				E436A84D23F5CFA9001D2A6A /* User.swift in Sources */,
+				E40CB20423F51F7900A30FA7 /* RegisterController.swift in Sources */,
 				E4D5FE1C23E9F9FC00E9C7AE /* Course.swift in Sources */,
 				E4D5FDF023E9F2AC00E9C7AE /* AddClassCell.swift in Sources */,
+				E4C8084B23F6451F006E8162 /* LoginViewModel.swift in Sources */,
 				E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */,
 				E4D5FE1923E9F5C900E9C7AE /* BasicExtensions.swift in Sources */,
 				E4D5FE1E23EA061200E9C7AE /* ClassSearchController.swift in Sources */,
@@ -313,6 +344,7 @@
 				E4BCD7BF23EBD6D20065B6A7 /* CustomTextField.swift in Sources */,
 				E4D5FE1323E9F5C900E9C7AE /* HeaderController.swift in Sources */,
 				E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */,
+				E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */,
 				E4D5FE1623E9F5C900E9C7AE /* HeaderFooterController.swift in Sources */,
 				E4D5FE1823E9F5C900E9C7AE /* CircularImageView.swift in Sources */,
 				E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */,

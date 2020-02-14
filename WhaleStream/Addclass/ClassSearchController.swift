@@ -33,12 +33,12 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText.isEmpty {
-            filteredCourses = courseNames.map{Course(name: $0)}
+            filteredCourses = courses
         } else {
-            filteredCourses = courseNames.filter { (courseName) -> Bool in //filter takes in a function that returns a bool as parameter that determines whether to keep it in the result collection
+            filteredCourses = courses.filter { (course) -> Bool in //filter takes in a function that returns a bool as parameter that determines whether to keep it in the result collection
                 let lowercaseSearch = searchText.lowercased()
-                return courseName.lowercased().contains(lowercaseSearch) ?? false
-            }.map({Course(name: $0)})
+                return course.className?.lowercased().contains(lowercaseSearch) ?? false || course.prof?.lowercased().contains(lowercaseSearch) ?? false
+            }
         }
         collectionView.reloadData()
     }
@@ -100,7 +100,8 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     
     
     var filteredCourses = [Course]()
-    var courseNames = ["COGS102B", "COGS102C", "COGS118B", "COGS115", "COGS119", "COGS120", "COGS163", "COGS164", "COGS169", "COGS171", "COGS172", "COGS174", "COGS175", "COGS176", "COGS177", "COGS178", "COGS179", "COGS180", "COGS184",  "COGS120", "COGS121", "COGS153", "COGS160", "COGS189", "COGS199", "PSYC116", "PSYC122", "PSYC123", "PSYC125", "PSYC132", "PSYC133", "PSYC144", "PSYC150", "PSYC159", "PSYC169", "PSYC170", "PSYC171", "PSYC179", "PSYC181", "PSYC189"]
+    var courses = [Course]()
+//    var courseNames = ["COGS102B", "COGS102C", "COGS118B", "COGS115", "COGS119", "COGS120", "COGS163", "COGS164", "COGS169", "COGS171", "COGS172", "COGS174", "COGS175", "COGS176", "COGS177", "COGS178", "COGS179", "COGS180", "COGS184",  "COGS120", "COGS121", "COGS153", "COGS160", "COGS189", "COGS199", "PSYC116", "PSYC122", "PSYC123", "PSYC125", "PSYC132", "PSYC133", "PSYC144", "PSYC150", "PSYC159", "PSYC169", "PSYC170", "PSYC171", "PSYC179", "PSYC181", "PSYC189"]
     
     
     

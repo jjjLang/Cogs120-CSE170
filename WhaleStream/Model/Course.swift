@@ -10,6 +10,13 @@ import Foundation
 
 
 struct Course {
-    var name : String?
+    var className : String?
     var prof: String?
+    var code: String?
+    
+    init(dictionary: [String: Any]) {
+        self.className = dictionary["className"] as? String ?? ""
+        self.prof = dictionary["prof"] as? String ?? ""
+        self.code = dictionary["code"] as? String ?? ""
+    }
 }
