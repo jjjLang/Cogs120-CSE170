@@ -63,6 +63,9 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
         //anchor searchbar in the navBar
         searchBar.anchor(top: navBar?.topAnchor, leading: navBar?.leadingAnchor, bottom: navBar?.bottomAnchor, trailing: navBar?.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 0))
         
+        view.addSubview(goBackButton)
+        goBackButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        
         
 
 //        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footId)
@@ -103,6 +106,19 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     
     var filteredCourses = [Course]()
     var courses = [Course]()
+    
+    let goBackButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Go to Login", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc fileprivate func handleBack() {
+        dismiss(animated: true, completion: nil)
+    }
 //    var courseNames = ["COGS102B", "COGS102C", "COGS118B", "COGS115", "COGS119", "COGS120", "COGS163", "COGS164", "COGS169", "COGS171", "COGS172", "COGS174", "COGS175", "COGS176", "COGS177", "COGS178", "COGS179", "COGS180", "COGS184",  "COGS120", "COGS121", "COGS153", "COGS160", "COGS189", "COGS199", "PSYC116", "PSYC122", "PSYC123", "PSYC125", "PSYC132", "PSYC133", "PSYC144", "PSYC150", "PSYC159", "PSYC169", "PSYC170", "PSYC171", "PSYC179", "PSYC181", "PSYC189"]
     
     
