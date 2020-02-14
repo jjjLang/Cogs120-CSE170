@@ -62,6 +62,8 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
          navigationController?.isNavigationBarHidden = false
         //anchor searchbar in the navBar
         searchBar.anchor(top: navBar?.topAnchor, leading: navBar?.leadingAnchor, bottom: navBar?.bottomAnchor, trailing: navBar?.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 0))
+        
+        
 
 //        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footId)
         collectionView.register(ClassSearchCell.self, forCellWithReuseIdentifier: cellId)
@@ -70,7 +72,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
         collectionView.alwaysBounceVertical = true //bounces when scroll down or up even not enough cells to exceed screen space
         collectionView.keyboardDismissMode = .onDrag //keyboard dismiss whenever drag on view
         
-        fetchCampus()
+        fetchCourses()
     }
     
     //calls after viewdid load, but will load multiple times everything view shows, viewdidload just load into memory
@@ -105,26 +107,25 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     
     
     
-    fileprivate func fetchCampus() {
+    fileprivate func fetchCourses() {
         
-//        let query = Firestore.firestore().collection("campus")
-//        query.getDocuments { (snapshot, err) in
-//            if let err = err {
-////                print(err)
-//                return
-//            }
-//            snapshot?.documents.forEach({ (document) in
-//                let campusDict = document.data()
-//                let campus = Campus(dictionary: campusDict)
-//                self.campuss.append(campus)
-//            })
-//            self.campuss.sort { (cp1, cp2) -> Bool in
+        let query = Firestore.firestore().collection("classes")
+        query.getDocuments { (snapshot, err) in
+            if let err = err {
+//                print(err)
+                return
+            }
+            snapshot?.documents.forEach({ (document) in
+                let courseDict = document.data()
+                self.courses.append(Course(dictionary: courseDict))
+            })
+//            self.courses.sort { (cp1, cp2) -> Bool in
 //                return cp1.taskAssisted > cp2.taskAssisted
 //            }
-//            self.filteredCampuss = self.campuss
-//            self.collectionView.reloadData()
-//
-//        }
+            self.filteredCourses = self.courses
+            self.collectionView.reloadData()
+
+        }
     }
 
     
