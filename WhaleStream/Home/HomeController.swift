@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentControllerDelegate {
     let cellID = "cellId"
     let tableView = UITableView()
     
@@ -91,13 +91,25 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return l
     }()
     
-    let helpLabel : UILabel = {
-        let l = UILabel()
-        l.textAlignment = .left
-        l.font = .systemFont(ofSize: 26)
-        l.attributedText = NSAttributedString(string: "Help?", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+    let helpLabel : UIButton = {
+        let l = UIButton()
+        l.titleLabel?.textAlignment = .left
+//        l.titleLabel?.textColor = .black
+        l.titleLabel?.font = .systemFont(ofSize: 26)
+        
+        l.setAttributedTitle(NSAttributedString(string: "Help?", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+            , for: .normal)
+        l.addTarget(self, action: #selector(handleHelp), for: .touchUpInside)
         return l
     }()
+    
+    @objc func handleHelp() {
+         let ac = UIAlertController(title: "Help", message: "The instructor cares about your feeling and your thoughts on the material! Try press an emoji or send a comment! The instructor will receive your feedback instantly! (Remember: you are free to change your feeling anytime during the lecture)", preferredStyle: .alert)
+               let cancelAction = UIAlertAction(title: "Got it", style: .cancel, handler: nil)
+               ac.addAction(cancelAction)
+
+               present(ac, animated: true)
+    }
     
     let commentInstruction = UILabel(text: "Comments on the materials", font: .systemFont(ofSize: 26), numberOfLines: 0)
     
@@ -106,8 +118,24 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tf.placeholder = "Type your comment"
         tf.backgroundColor = .white
         tf.borderStyle = .roundedRect
+        tf.addTarget(self, action: #selector(handleComment), for: .touchDown)
         return tf
     }()
+    
+    @objc func handleComment() {
+        let commentController = CommentController()
+        commentController.delegate = self
+        navigationController?.pushViewController(commentController, animated: true)
+    }
+    
+    func didSendComment(comment: String) {
+        comments.insert(comment, at: 0)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mma" // "a" prints "pm" or "am"
+        let timeString = formatter.string(from: Date()) // "12 AM"
+        commentsTime.insert(timeString, at: 0)
+        tableView.reloadData()
+    }
     
     
     let historyCommentInstruction = UILabel(text: "View you own history of comments", font: .systemFont(ofSize: 20), numberOfLines: 0)
@@ -119,8 +147,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         b.backgroundColor = .blue
         b.layer.cornerRadius = 8
         b.clipsToBounds = true
+        b.addTarget(self, action: #selector(handleViewFull), for: .touchUpInside)
         return b
     }()
+    
+    @objc fileprivate func handleViewFull() {
+        let fullCommentController = FullCommentViewController()
+        fullCommentController.comments = comments
+        fullCommentController.commentsTime = commentsTime
+        navigationController?.pushViewController(fullCommentController, animated: true)
+    }
     
     
     
@@ -141,10 +177,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }()
     
+    var barColor : UIColor? {
+        didSet {
+            navigationController?.navigationBar.barTintColor = barColor ?? UIColor.white
+        }
+    }
+    
     fileprivate func setupUI() {
         view.backgroundColor = .white
 //        view.addSubview(overallStackView)
         tableView.separatorStyle = .none
+        
         
         
         
@@ -203,6 +246,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.withBorder(width: 2, color: .lightGray)
         tableView.layer.cornerRadius = 10
         
+        
         setupUI()
         setupTapGesture()
     }
@@ -215,7 +259,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return comments.count
     }
 //
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

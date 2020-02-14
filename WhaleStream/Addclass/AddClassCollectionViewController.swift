@@ -123,6 +123,7 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
         
         if user?.isStudent == true {
             let home = HomeController()
+//            home.barColor =
             navigationController?.pushViewController(home, animated: true)
             return
         } else {

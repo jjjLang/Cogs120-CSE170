@@ -25,6 +25,8 @@
 		E4BCD7BF23EBD6D20065B6A7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */; };
 		E4C8084923F644DF006E8162 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084823F644DF006E8162 /* LoginController.swift */; };
 		E4C8084B23F6451F006E8162 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084A23F6451F006E8162 /* LoginViewModel.swift */; };
+		E4C8084D23F65F8B006E8162 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084C23F65F8B006E8162 /* CommentController.swift */; };
+		E4C8084F23F67451006E8162 /* FullCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8084E23F67451006E8162 /* FullCommentViewController.swift */; };
 		E4D5FDF023E9F2AC00E9C7AE /* AddClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FDEF23E9F2AC00E9C7AE /* AddClassCell.swift */; };
 		E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE0623E9F5C800E9C7AE /* FirebaseExtensions.swift */; };
 		E4D5FE1123E9F5C900E9C7AE /* CustomImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE0723E9F5C800E9C7AE /* CustomImagePickerController.swift */; };
@@ -64,6 +66,8 @@
 		E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E4C8084823F644DF006E8162 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		E4C8084A23F6451F006E8162 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E4C8084C23F65F8B006E8162 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
+		E4C8084E23F67451006E8162 /* FullCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCommentViewController.swift; sourceTree = "<group>"; };
 		E4D5FDEF23E9F2AC00E9C7AE /* AddClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassCell.swift; sourceTree = "<group>"; };
 		E4D5FE0623E9F5C800E9C7AE /* FirebaseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseExtensions.swift; sourceTree = "<group>"; };
 		E4D5FE0723E9F5C800E9C7AE /* CustomImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImagePickerController.swift; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 				E4BCD7BC23EBC6020065B6A7 /* EmojiButton.swift */,
 				E4BCD7BE23EBD6D20065B6A7 /* CustomTextField.swift */,
 				E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */,
+				E4C8084C23F65F8B006E8162 /* CommentController.swift */,
+				E4C8084E23F67451006E8162 /* FullCommentViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -343,10 +349,12 @@
 				E4368A5A23E7FF5600C56511 /* SceneDelegate.swift in Sources */,
 				E4BCD7BF23EBD6D20065B6A7 /* CustomTextField.swift in Sources */,
 				E4D5FE1323E9F5C900E9C7AE /* HeaderController.swift in Sources */,
+				E4C8084D23F65F8B006E8162 /* CommentController.swift in Sources */,
 				E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */,
 				E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */,
 				E4D5FE1623E9F5C900E9C7AE /* HeaderFooterController.swift in Sources */,
 				E4D5FE1823E9F5C900E9C7AE /* CircularImageView.swift in Sources */,
+				E4C8084F23F67451006E8162 /* FullCommentViewController.swift in Sources */,
 				E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */,
 				E4D5FE1723E9F5C900E9C7AE /* ListController.swift in Sources */,
 			);
