@@ -109,7 +109,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     
     let goBackButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Go to Login", for: .normal)
+        button.setTitle("Go Back", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
