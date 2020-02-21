@@ -129,10 +129,12 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
         if user?.isStudent == true {
             let home = HomeController()
 //            home.barColor =
+            home.course = courses[indexPath.item]
             navigationController?.pushViewController(home, animated: true)
             return
         } else {
             let home = InstructorHomeController()
+            home.course = courses[indexPath.item]
             navigationController?.pushViewController(home, animated: true)
         }
 
@@ -141,6 +143,7 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     
     func selectCourse(course: Course) {
         courses.append(course)
+        studentAddClassToFireStore(course: course)
         collectionView.reloadData()
     }
     
@@ -176,16 +179,26 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
 
     }
     
+    
+    fileprivate func studentAddClassToFireStore(course: Course) {
+        guard let currentUID = Auth.auth().currentUser?.uid else {return}
+        user?.classes.append(course.classID ?? "")
+        Firestore.firestore().collection("users").document(currentUID).updateData(["classes": user?.classes])
+        courses = [Course]()
+        fetchClasses()
+    }
+    
     fileprivate func instructorAddClassToFireStore(className: String, code: String) {
         guard let currentUID = Auth.auth().currentUser?.uid else {return}
-        let filename = UUID().uuidString
-        let dict = ["className": className, "code": code, "prof": user?.name]
+//        let filename = UUID().uuidString
+        var dict = ["className": className, "code": code, "prof": user?.name]
         let docId = Firestore.firestore().collection("classes").addDocument(data: dict).documentID
+//        dict["classID"] = docId
+        Firestore.firestore().collection("classes").document(docId).updateData(["classID": docId])
         user?.classes.append(docId)
         Firestore.firestore().collection("users").document(currentUID).updateData(["classes": user?.classes])
         courses = [Course]()
         fetchClasses()
-        
     }
     
 

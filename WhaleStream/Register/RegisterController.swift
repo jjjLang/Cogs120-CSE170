@@ -190,7 +190,7 @@ class RegisterController: UIViewController {
     }()
     
     lazy var overallStackView = UIStackView(arrangedSubviews: [
-        selectPhotoButton.withHeight(275),
+//        selectPhotoButton.withHeight(275),
         verticalStackView
         ])
     

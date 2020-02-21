@@ -151,12 +151,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //last cell
-//        if indexPath.item == filteredCourses.count {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCell, for: indexPath) as! CampusAddCell
-//            return cell
-//        }
-//
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ClassSearchCell
         
         cell.course = filteredCourses[indexPath.item]

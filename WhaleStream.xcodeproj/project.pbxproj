@@ -41,6 +41,7 @@
 		E4D5FE1C23E9F9FC00E9C7AE /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */; };
 		E4D5FE1E23EA061200E9C7AE /* ClassSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1D23EA061200E9C7AE /* ClassSearchController.swift */; };
 		E4D5FE2023EA06DB00E9C7AE /* ClassSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1F23EA06DB00E9C7AE /* ClassSearchCell.swift */; };
+		E4FDD74523FF512100FE9337 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDD74423FF512100FE9337 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		E4D5FE1D23EA061200E9C7AE /* ClassSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSearchController.swift; sourceTree = "<group>"; };
 		E4D5FE1F23EA06DB00E9C7AE /* ClassSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSearchCell.swift; sourceTree = "<group>"; };
+		E4FDD74423FF512100FE9337 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			children = (
 				E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */,
 				E436A84C23F5CFA9001D2A6A /* User.swift */,
+				E4FDD74423FF512100FE9337 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */,
 				E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */,
 				E4D5FE1623E9F5C900E9C7AE /* HeaderFooterController.swift in Sources */,
+				E4FDD74523FF512100FE9337 /* Comment.swift in Sources */,
 				E4D5FE1823E9F5C900E9C7AE /* CircularImageView.swift in Sources */,
 				E4C8084F23F67451006E8162 /* FullCommentViewController.swift in Sources */,
 				E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class InstructorHomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let cellID = "cellId"
@@ -39,45 +40,65 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }()
     
     let laughNum : UILabel = {
-       let b = UILabel(text: "21")
+       let b = UILabel(text: "0")
         b.font = UIFont.systemFont(ofSize: 16)
         b.textAlignment = .center
         return b
     }()
-    let laughBar : UILabel = {
-       let b = UILabel(backgroundColor: .green, opacity: 1)
+    let laughBar : UIButton = {
+        let b = UIButton(backgroundColor: .green, opacity: 1)
         b.layer.cornerRadius = 16
         b.clipsToBounds = true
         return b
     }()
+    
+    let laughContainer : UIView = {
+        let v = UIView()
+        v.backgroundColor = .white
+        return v
+    }()
+    
+    let smileContainer : UIView = {
+        let v = UIView()
+        v.backgroundColor = .white
+        return v
+    }()
+    
+    let sadContainer : UIView = {
+        let v = UIView()
+        v.backgroundColor = .white
+        return v
+    }()
+    
+    
     let smileNum : UILabel = {
-       let b = UILabel(text: "40")
+       let b = UILabel(text: "0")
         b.font = UIFont.systemFont(ofSize: 16)
         b.textAlignment = .center
 
         return b
     }()
-    let smileBar : UILabel = {
-       let b = UILabel(backgroundColor: .yellow, opacity: 1)
+    let smileBar : UIButton = {
+        let b = UIButton(backgroundColor: .yellow, opacity: 1)
         b.layer.cornerRadius = 16
         b.clipsToBounds = true
         return b
     }()
     let sadNum : UILabel = {
-       let b = UILabel(text: "33")
+       let b = UILabel(text: "0")
         b.font = UIFont.systemFont(ofSize: 16)
         b.textAlignment = .center
         return b
     }()
-    let sadBar : UILabel = {
-       let b = UILabel(backgroundColor: .red, opacity: 1)
+    let sadBar : UIButton = {
+        let b = UIButton(backgroundColor: .red, opacity: 1)
         b.layer.cornerRadius = 16
         b.clipsToBounds = true
         return b
     }()
     
     lazy var laughStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [laughNum, laughBar.withHeight(130), laughButton])
+        let sv = UIStackView(arrangedSubviews: [laughNum, laughContainer.withHeight(240), laughButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -85,7 +106,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }()
     
     lazy var smileStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [smileNum, smileBar.withHeight(240), smileButton])
+        let sv = UIStackView(arrangedSubviews: [smileNum, smileContainer.withHeight(240), smileButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -94,7 +115,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }()
 
     lazy var sadStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [sadNum, sadBar.withHeight(200), sadButton])
+        let sv = UIStackView(arrangedSubviews: [sadNum, sadContainer.withHeight(240), sadButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -185,6 +206,17 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         
         
         
+        laughContainer.addSubview(laughBar)
+        laughBar.anchor(top: nil, leading: laughContainer.leadingAnchor, bottom: laughContainer.bottomAnchor, trailing: laughContainer.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+        smileContainer.addSubview(smileBar)
+        smileBar.anchor(top: nil, leading: smileContainer.leadingAnchor, bottom: smileContainer.bottomAnchor, trailing: smileContainer.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+        sadContainer.addSubview(sadBar)
+        sadBar.anchor(top: nil, leading: sadContainer.leadingAnchor, bottom: sadContainer.bottomAnchor, trailing: sadContainer.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+        
+        
         
 //        overallStackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
     }
@@ -218,13 +250,186 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+         var course: Course? {
+              didSet {
+                navigationItem.title = course?.className
+                fetchComments(classID: course?.classID ?? "")
+                fetchReactions(classID: course?.classID ?? "")
+              }
+          }
+    
+    var totalReactionCount : Double = 0
+    var laughCount : Double = 0
+    var smileCount : Double = 0
+    var sadCount : Double = 0
+    
+    var reactionListener: ListenerRegistration?
+
+    fileprivate func fetchReactions(classID: String) {
+        guard let currentUID = Auth.auth().currentUser?.uid else {return}
+        let query = Firestore.firestore().collection("classReactions").document(classID).collection("reactions")
+        reactionListener = query.addSnapshotListener({ (querySnapshot, err) in
+            if let err = err {
+                print(err)
+                return
+            }
+            querySnapshot?.documentChanges.forEach({ (change) in
+                if change.type == .added {
+                    let dict = change.document.data()
+                    if dict["reactionID"] as? Int == 0 {
+                        self.laughCount += 1
+                    } else if dict["reactionID"] as? Int == 1 {
+                        self.smileCount += 1
+                    } else if dict["reactionID"] as? Int == 2 {
+                        self.sadCount += 1
+                    }
+                    self.totalReactionCount += 1
+                } else if change.type == .modified {
+                    let dict = change.document.data()
+                    guard let reactionID = dict["reactionID"] as? Int else {return}
+                    guard let prevID = dict["previousReactionID"] as? Int else {return}
+//                    if reactionID == prevID {
+//                        return
+//                    }
+                    if dict["reactionID"] as? Int == 0 {
+                        self.laughCount += 1
+                    } else if dict["reactionID"] as? Int == 1 {
+                        self.smileCount += 1
+                    } else if dict["reactionID"] as? Int == 2 {
+                        self.sadCount += 1
+                    }
+                    
+                    if dict["previousReactionID"] as? Int == 0 {
+                        self.laughCount -= 1
+
+                    } else if dict["previousReactionID"] as? Int == 1 {
+                        self.smileCount -= 1
+
+                    } else if dict["previousReactionID"] as? Int == 2 {
+                        self.sadCount -= 1
+                    }
+                }
+            })
+            self.reloadReactionBars()
+            self.tableView.reloadData()
+        })
+    }
+    
+    
+    var laughBarHeightConstraint : NSLayoutConstraint?
+    var smileBarHeightConstraint : NSLayoutConstraint?
+    var sadBarHeightConstraint : NSLayoutConstraint?
+
 
     
-    var comments = ["Why does 1+1 = 3? That was counterintuitive for me.", "I love your shirt!", "Could you speak slower?", "Your handwriting is hard to read, what is the second word of the upper-right sentence on the blackboard?", "What does an user-friendly app mean?"]
-    var commentsTime = ["2:05PM", "2:04PM", "2:03PM", "2:03PM", "2:00PM"]
+    fileprivate func reloadReactionBars() {
+        
+//        DispatchQueue.main.async {
+            var laughHeight = CGFloat(self.laughCount/self.totalReactionCount * 240 - 1)
+//            if laughHeight > 239 {
+//                laughHeight = 239
+//            } else
+            if laughHeight < 1 {
+                laughHeight = 0
+            }
+        
+        //        self.laughBar.constrainHeight(laughHeight)
+        //        self.laughBar.heightAnchor
+        //        self.laughBar.withSize(CGSize(width: 60, height: laughHeight))
+        //        laughBarHeightConstraint = self.laughBar.constrainHeight(laughHeight)
+
+        laughBar.removeConstraint(laughBarHeightConstraint ?? NSLayoutConstraint())
+        laughBarHeightConstraint = laughBar.heightAnchor.constraint(equalToConstant: laughHeight)
+        laughBarHeightConstraint?.isActive = true
+        self.laughBar.layoutIfNeeded()
+//        self.laughBar.updateConstraints()
+
+
+
+            
+            var smileHeight = CGFloat(self.smileCount/self.totalReactionCount * 240 - 1)
+//            if smileHeight > 239 {
+//                smileHeight = 239
+//            } else
+            if smileHeight < 1 {
+                smileHeight = 0
+            }
+        
+        
+        smileBar.removeConstraint(smileBarHeightConstraint ?? NSLayoutConstraint())
+        smileBarHeightConstraint = smileBar.heightAnchor.constraint(equalToConstant: smileHeight)
+        smileBarHeightConstraint?.isActive = true
+        self.smileBar.layoutIfNeeded()
+            
+
+
+
+            var sadHeight = CGFloat(self.sadCount/self.totalReactionCount * 240 - 1)
+//            if sadHeight > 239 {
+//                sadHeight = 239
+//            } else
+            if sadHeight < 1 {
+                sadHeight = 0
+            }
+        
+        sadBar.removeConstraint(sadBarHeightConstraint ?? NSLayoutConstraint())
+        sadBarHeightConstraint = sadBar.heightAnchor.constraint(equalToConstant: sadHeight)
+        sadBarHeightConstraint?.isActive = true
+        self.sadBar.layoutIfNeeded()
+        
+        
+
+//        }
+ 
+
+        laughNum.text = "\(laughCount)"
+        smileNum.text = "\(smileCount)"
+        sadNum.text = "\(sadCount)"
+
+        
+    }
+        
+        var listener: ListenerRegistration?
+
+        
+        fileprivate func fetchComments(classID: String) {
+            guard let currentUID = Auth.auth().currentUser?.uid else {return}
+            let query = Firestore.firestore().collection("classComments").document(classID).collection("comments").order(by: "timestamp", descending: false)
+            listener = query.addSnapshotListener({ (querySnapshot, err) in
+                if let err = err {
+                    print(err)
+                    return
+                }
+                querySnapshot?.documentChanges.forEach({ (change) in
+                    if change.type == .added {
+                        let dict = change.document.data()
+    //                    self.comments.append(Comment(dictionary: dict))
+                        self.comments.insert(Comment(dictionary: dict), at: 0)
+                    }
+                })
+                self.tableView.reloadData()
+            })
+        }
+        
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            if isMovingFromParent {
+                listener?.remove()
+                reactionListener?.remove()
+            }
+        }
+    
+    
+    
+
+    
+//    var comments = ["Why does 1+1 = 3? That was counterintuitive for me.", "I love your shirt!", "Could you speak slower?", "Your handwriting is hard to read, what is the second word of the upper-right sentence on the blackboard?", "What does an user-friendly app mean?"]
+//    var commentsTime = ["2:05PM", "2:04PM", "2:03PM", "2:03PM", "2:00PM"]
+    
+    var comments = [Comment]()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return comments.count
     }
 //
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -232,13 +437,19 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
 //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UITableViewCell
-        let attiText = NSMutableAttributedString(string: commentsTime[indexPath.row] , attributes: [.foregroundColor : UIColor.blue])
-        attiText.append(NSMutableAttributedString(string: " \(comments[indexPath.row])"))
-        cell.textLabel?.attributedText = attiText
-        cell.textLabel?.numberOfLines = 0
-        return cell
-    }
+         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UITableViewCell
+         let comment = comments[indexPath.item]
+         
+         let formatter = DateFormatter()
+         formatter.dateFormat = "MM-dd hh:mma" // "a" prints "pm" or "am"
+         let timeString = formatter.string(from: comment.timestamp.dateValue()) // "12 AM"
+         
+         let attiText = NSMutableAttributedString(string: timeString, attributes: [.foregroundColor : UIColor.blue])
+         attiText.append(NSMutableAttributedString(string: " \(comment.text)"))
+         cell.textLabel?.attributedText = attiText
+         cell.textLabel?.numberOfLines = 0
+         return cell
+     }
     
     
     
