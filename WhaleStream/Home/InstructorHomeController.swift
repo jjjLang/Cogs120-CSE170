@@ -324,7 +324,10 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     
     fileprivate func reloadReactionBars() {
         
-//        DispatchQueue.main.async {
+        if totalReactionCount == 0.0 {
+            return
+        }
+        
             var laughHeight = CGFloat(self.laughCount/self.totalReactionCount * 240 - 1)
 //            if laughHeight > 239 {
 //                laughHeight = 239
@@ -378,8 +381,6 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         self.sadBar.layoutIfNeeded()
         
         
-
-//        }
  
 
         laughNum.text = "\(laughCount)"

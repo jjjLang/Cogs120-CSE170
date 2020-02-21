@@ -147,6 +147,15 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
         collectionView.reloadData()
     }
     
+    
+    fileprivate func studentAddClassToFireStore(course: Course) {
+        guard let currentUID = Auth.auth().currentUser?.uid else {return}
+        user?.classes.append(course.classID ?? "")
+        Firestore.firestore().collection("users").document(currentUID).updateData(["classes": user?.classes])
+        courses = [Course]()
+        fetchClasses()
+    }
+    
     fileprivate func handleAddSearch() {
         if user?.isStudent == true {
             let classSearchController = ClassSearchController(collectionViewLayout: UICollectionViewFlowLayout())
@@ -180,13 +189,7 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     }
     
     
-    fileprivate func studentAddClassToFireStore(course: Course) {
-        guard let currentUID = Auth.auth().currentUser?.uid else {return}
-        user?.classes.append(course.classID ?? "")
-        Firestore.firestore().collection("users").document(currentUID).updateData(["classes": user?.classes])
-        courses = [Course]()
-        fetchClasses()
-    }
+
     
     fileprivate func instructorAddClassToFireStore(className: String, code: String) {
         guard let currentUID = Auth.auth().currentUser?.uid else {return}
