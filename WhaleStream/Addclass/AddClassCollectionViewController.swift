@@ -235,7 +235,7 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
                    tf.autocapitalizationType = .allCharacters
                }
                ac.addTextField { (tf) in
-                   tf.placeholder = "Class Code"
+                   tf.placeholder = "set up passcode"
                    tf.autocapitalizationType = .words
                }
             

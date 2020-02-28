@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 
 protocol ClassSearchControllerDelegate: UIViewController {
@@ -86,6 +87,8 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     }
     
     
+
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         searchBar.isHidden = true
         searchBar.resignFirstResponder() //dimiss keyboard when push into another view
@@ -96,9 +99,34 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
 //            return
 //        }
         
-        let courseName = filteredCourses[indexPath.item]
-        delegate?.selectCourse(course: courseName)
-        dismiss(animated: true)
+        let ac = UIAlertController(title: "Enter passcode", message: nil, preferredStyle: .alert)
+        ac.addTextField { (tf) in
+            tf.placeholder = "Passcode"
+            tf.autocapitalizationType = .allCharacters
+        }
+        
+        let addAction = UIAlertAction(title: "Confirm", style: .default) { [unowned ac] _ in
+            let passcode = ac.textFields![0].text ?? ""
+            if passcode == self.courses[indexPath.item].code {
+                let courseName = self.filteredCourses[indexPath.item]
+                self.delegate?.selectCourse(course: courseName)
+                self.dismiss(animated: true)
+            } else {
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = "incorrect passcode"
+                hud.show(in: self.view) //show hud when click save
+                hud.dismiss(afterDelay: 2) //dimiss after 4 seconds
+                self.searchBar.isHidden = false
+
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        ac.addAction(addAction)
+        ac.addAction(cancelAction)
+
+        present(ac, animated: true)
+        
+
         
         
     }
