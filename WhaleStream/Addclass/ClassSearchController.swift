@@ -34,6 +34,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
         
         if searchText.isEmpty {
             filteredCourses = courses
+            
         } else {
             filteredCourses = courses.filter { (course) -> Bool in //filter takes in a function that returns a bool as parameter that determines whether to keep it in the result collection
                 let lowercaseSearch = searchText.lowercased()
@@ -64,7 +65,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
         searchBar.anchor(top: navBar?.topAnchor, leading: navBar?.leadingAnchor, bottom: navBar?.bottomAnchor, trailing: navBar?.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 0))
         
         view.addSubview(goBackButton)
-        goBackButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        goBackButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 120, bottom: 0, right: 120), size: .init(width: 120, height: 50))
         
         
 
@@ -103,16 +104,25 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     }
     
     
+    var alreadyHaveCourses = Set<String>()
     
     var filteredCourses = [Course]()
     var courses = [Course]()
     
     let goBackButton: UIButton = {
-        let button = UIButton(type: .system)
+//        let button = UIButton()
+//        button.backgroundColor = .hotPink
+//        button.setTitle("Go Back", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+//        button.layer.opacity = 1
+//        button.layer.cornerRadius = 22
+        let button = GoBackButton(type: .system)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle("Go Back", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        
+
         return button
     }()
     
@@ -123,7 +133,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
     
     
     
-    fileprivate func fetchCourses() {
+    fileprivate func fetchCourses() { 
         
         let query = Firestore.firestore().collection("classes")
         query.getDocuments { (snapshot, err) in
@@ -133,7 +143,10 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
             }
             snapshot?.documents.forEach({ (document) in
                 let courseDict = document.data()
-                self.courses.append(Course(dictionary: courseDict))
+                let course = Course(dictionary: courseDict)
+                if !self.alreadyHaveCourses.contains(course.classID ?? "") {
+                    self.courses.append(course)
+                }
             })
 //            self.courses.sort { (cp1, cp2) -> Bool in
 //                return cp1.taskAssisted > cp2.taskAssisted

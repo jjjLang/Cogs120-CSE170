@@ -21,18 +21,11 @@ class RegisterCampusViewModel {
     //then only need to set the value and reactor
     var bindableImage = Bindable<UIImage>()
     
-//    var image: UIImage? {
-//        didSet {
-//            imageObserver?(image)
-//        }
-//    }
-//    //observe variable change in viewmodel and reflect in view, variable is image, so thats the input parameter; either have definiton or be optional, else need initializer
-//    var imageObserver: ((UIImage?) -> ())?
+
     
     
     var name: String? {
         didSet { //changes in state triggers action, setup button in view or controller class, should trigger action in UI
-
             checkRegisterInputValid()
         }
     }
@@ -59,7 +52,7 @@ class RegisterCampusViewModel {
     //checks own property, self calls a functor that makes another class do stuff
     func checkRegisterInputValid() {
 //        let isFormValid = name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false &&  bindableImage.value != nil
-        let isFormValid = name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false
+        let isFormValid = name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false &&  bindableImage.value != nil
         bindableEnableRegisterButton.value = isFormValid
     }
     
@@ -82,29 +75,27 @@ class RegisterCampusViewModel {
    
     
     fileprivate func storeProfileImageFirebaseStorage(userId: String, completion: @escaping (Error?) -> ()) {
-//        let filename = UUID().uuidString
-//        let ref = Storage.storage().reference(withPath: "\(filename)")
-//        let imageData = self.bindableImage.value?.jpegData(compressionQuality: 0.75) ?? Data()
-//        ref.putData(imageData, metadata: nil, completion: { (_, err) in
-//            if let err = err {
-//                completion(err)
-//                return
-//            }
-////            print("uploaded image to storage")
-//            _ = ref.downloadURL(completion: { (url, err) in
-//                if let err = err {
-//                    completion(err)
-//                    return
-//                }
-//                self.binadableShowRegisterHUD.value = false
-//
-//                let imageUrl = url?.absoluteString ?? ""
-//                self.saveRegisterDataFirestore(imageUrl: imageUrl, completion: completion)
-//            })
-//        })
-        
-        self.saveRegisterDataFirestore(imageUrl: "", completion: completion)
+        let filename = UUID().uuidString
+        let ref = Storage.storage().reference(withPath: "\(filename)")
+        let imageData = self.bindableImage.value?.jpegData(compressionQuality: 0.75) ?? Data()
+        ref.putData(imageData, metadata: nil, completion: { (_, err) in
+            if let err = err {
+                completion(err)
+                return
+            }
+//            print("uploaded image to storage")
+            _ = ref.downloadURL(completion: { (url, err) in
+                if let err = err {
+                    completion(err)
+                    return
+                }
+                self.binadableShowRegisterHUD.value = false
 
+                let imageUrl = url?.absoluteString ?? ""
+                self.saveRegisterDataFirestore(imageUrl: imageUrl, completion: completion)
+            })
+        })
+        
     }
     
     fileprivate func saveRegisterDataFirestore(imageUrl: String,completion: @escaping (Error?) -> ()) {
@@ -114,7 +105,7 @@ class RegisterCampusViewModel {
             name.removeLast()
         }
         let data : [String: Any] = [
-//                                    "imageUrl": imageUrl,
+                                    "imageUrl": imageUrl,
                                     "name": name,
                                     "uid": uid,
                                     "isStudent": isStudent ?? true

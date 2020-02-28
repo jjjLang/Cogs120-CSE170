@@ -8,8 +8,11 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
-class InstructorHomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class InstructorHomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, HomeAltNavBarDelegate {
+
+    
     let cellID = "cellId"
     let tableView = UITableView()
     
@@ -19,35 +22,35 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         let button = EmojiButton(type: .system)
         button.backgroundColor = .white
         button.setTitle("😄", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 34)
         return button
     }()
     fileprivate lazy var smileButton: EmojiButton = {
         let button = EmojiButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("😊", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
+        button.setTitle("😲", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 34)
 
         return button
     }()
     fileprivate lazy var sadButton: EmojiButton = {
         let button = EmojiButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("☹️", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 26)
+        button.setTitle("🤔", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 34)
 
         return button
     }()
     
     let laughNum : UILabel = {
        let b = UILabel(text: "0")
-        b.font = UIFont.systemFont(ofSize: 16)
+        b.font = UIFont.systemFont(ofSize: 20)
         b.textAlignment = .center
         return b
     }()
     let laughBar : UIButton = {
-        let b = UIButton(backgroundColor: .green, opacity: 1)
-        b.layer.cornerRadius = 16
+        let b = UIButton(backgroundColor: UIColor.rgb(red: 253, green: 93, blue: 93), opacity: 1)
+        b.layer.cornerRadius = 20
         b.clipsToBounds = true
         return b
     }()
@@ -73,32 +76,34 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     
     let smileNum : UILabel = {
        let b = UILabel(text: "0")
-        b.font = UIFont.systemFont(ofSize: 16)
+        b.font = UIFont.systemFont(ofSize: 20)
         b.textAlignment = .center
 
         return b
     }()
     let smileBar : UIButton = {
-        let b = UIButton(backgroundColor: .yellow, opacity: 1)
-        b.layer.cornerRadius = 16
+        let b = UIButton(backgroundColor: UIColor.rgb(red: 242, green: 201, blue: 76), opacity: 1)
+        b.layer.cornerRadius = 20
         b.clipsToBounds = true
         return b
     }()
     let sadNum : UILabel = {
        let b = UILabel(text: "0")
-        b.font = UIFont.systemFont(ofSize: 16)
+        b.font = UIFont.systemFont(ofSize: 20)
         b.textAlignment = .center
         return b
     }()
     let sadBar : UIButton = {
-        let b = UIButton(backgroundColor: .red, opacity: 1)
-        b.layer.cornerRadius = 16
+        let b = UIButton(backgroundColor: UIColor.rgb(red: 39, green: 174, blue: 96), opacity: 1)
+        b.layer.cornerRadius = 20
         b.clipsToBounds = true
         return b
     }()
     
+    var emojibarHeight: Double = 170
+    
     lazy var laughStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [laughNum, laughContainer.withHeight(240), laughButton])
+        let sv = UIStackView(arrangedSubviews: [laughNum, laughContainer.withHeight(CGFloat(emojibarHeight)), laughButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -106,7 +111,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }()
     
     lazy var smileStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [smileNum, smileContainer.withHeight(240), smileButton])
+        let sv = UIStackView(arrangedSubviews: [smileNum, smileContainer.withHeight(CGFloat(emojibarHeight)), smileButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -115,7 +120,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     }()
 
     lazy var sadStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [sadNum, sadContainer.withHeight(240), sadButton])
+        let sv = UIStackView(arrangedSubviews: [sadNum, sadContainer.withHeight(CGFloat(emojibarHeight)), sadButton])
         sv.axis = .vertical
         sv.spacing = 5
         sv.distribution = .fill
@@ -127,9 +132,9 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     
     lazy var emojiStackView : UIStackView  = {
        let sv = UIStackView(arrangedSubviews: [
-        laughStack.withWidth(50),
-        smileStack.withWidth(50),
-        sadStack.withWidth(50)
+        laughStack.withWidth(40),
+        smileStack.withWidth(40),
+        sadStack.withWidth(40)
        ])
         sv.axis = .horizontal
         sv.distribution = .equalSpacing
@@ -139,12 +144,12 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
     
     
     let emojiIntructionLabel: UILabel = {
-        let l = UILabel(text: "In class real-time response:", font: UIFont.systemFont(ofSize: 16), textAlignment: .left, numberOfLines: 0)
+        let l = UILabel(text: "In class real-time response:", font: .systemFont(ofSize: 18), textAlignment: .left, numberOfLines: 0)
         return l
     }()
     
     
-    let commentInstruction = UILabel(text: "Real-time comments:", font: .systemFont(ofSize: 16), numberOfLines: 0)
+    let commentInstruction = UILabel(text: "Real-time comments:", font: .systemFont(ofSize: 18), numberOfLines: 0)
     
     
     
@@ -181,28 +186,114 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
 //
 //    }()
     
+    
+    fileprivate var userProfileUrl: String
+
+    fileprivate let course: Course
+    
+    
+    init(course: Course, userProfileUrl: String) {
+        self.userProfileUrl = userProfileUrl
+        self.course = course
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    fileprivate let navBarHeight:CGFloat = 120
+    
+    func didTapProfileImage() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let changeProfileAction = UIAlertAction(title: "Change Profile Image", style: .default) { (_) in
+            self.handleChangeProfilePhoto()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        actionSheet.addAction(changeProfileAction)
+        actionSheet.addAction(cancelAction)
+        present(actionSheet,animated: true,completion: nil)
+    }
+    
+    
+    func handleChangeProfilePhoto() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+    
+    func fetchProfileUrl() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, err) in
+            let dict = snapshot?.data()
+            self.userProfileUrl = dict?["imageUrl"] as? String ?? ""
+            self.homeAltNavBar.userProfileImageView.sd_setImage(with: URL(string: self.userProfileUrl), completed: nil)
+            
+        }
+        
+    }
+
+
+    fileprivate lazy var homeAltNavBar = HomeAltNavBar(className: course.className ?? "", profileUrl: userProfileUrl )
+
+    @objc func handleBack() {
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.popViewController(animated: true)
+    }
+    
     fileprivate func setupUI() {
         view.backgroundColor = .white
 //        view.addSubview(overallStackView)
         tableView.separatorStyle = .none
         
-        view.addSubview(emojiIntructionLabel)
-        emojiIntructionLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+        homeAltNavBar.backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+
         
-        view.addSubview(emojiStackView)
-        emojiStackView.anchor(top: emojiIntructionLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 80, bottom: 0, right: 80))
-        emojiStackView.withBorder(width: 3, color: .lightGray)
+        
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isHidden = true
+        
+        homeAltNavBar.delegate = self
+
+        fetchProfileUrl()
+        
+        view.addSubview(homeAltNavBar)
+        homeAltNavBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: navBarHeight))
+        
+        let statusBarCover = UIView(backgroundColor: .white, opacity: 1)
+        view.addSubview(statusBarCover)
+        statusBarCover.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
+        
+
+    
+        
+        view.addSubview(emojiIntructionLabel)
+        emojiIntructionLabel.anchor(top: homeAltNavBar.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 8, left: 25, bottom: 0, right: 25), size: .init(width: 0, height: 50))
+        
+        let emoStackViewContainer = UIView()
+        emoStackViewContainer.addSubview(emojiStackView)
+        emojiStackView.anchor(top: emoStackViewContainer.topAnchor, leading: emoStackViewContainer.leadingAnchor, bottom: emoStackViewContainer.bottomAnchor, trailing: emoStackViewContainer.trailingAnchor, padding: .init(top: 16, left: 60, bottom: 8, right: 60), size: .init(width: 0, height: 0))
+        emoStackViewContainer.withBorder(width: 2, color: UIColor.init(white: 0, alpha: 0.1))
+        emoStackViewContainer.layer.cornerRadius = 12
+
+
+        
+        view.addSubview(emoStackViewContainer)
+        emoStackViewContainer.anchor(top: emojiIntructionLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 20, bottom: 0, right: 20))
+//        emojiStackView.withBorder(width: 3, color: .lightGray)
 
         view.addSubview(commentInstruction)
-        commentInstruction.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 5, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+        commentInstruction.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 25, bottom: 0, right: 25), size: .init(width: 0, height: 50))
         
         
         view.addSubview(tableView)
-        tableView.anchor(top: commentInstruction.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 0))
+        tableView.anchor(top: commentInstruction.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 8, left: 20, bottom: 0, right: 20), size: .init(width: 0, height: 0))
         
         
         view.addSubview(endClassButton)
-        endClassButton.anchor(top: tableView.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 8, right: 16), size: .init(width: 180, height: 50))
+        endClassButton.anchor(top: tableView.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 5, left: 16, bottom: 8, right: 16), size: .init(width: 180, height: 30))
         
         
         
@@ -214,6 +305,8 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         
         sadContainer.addSubview(sadBar)
         sadBar.anchor(top: nil, leading: sadContainer.leadingAnchor, bottom: sadContainer.bottomAnchor, trailing: sadContainer.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+        endClassButton.isHidden = true
         
         
         
@@ -242,21 +335,25 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        tableView.withBorder(width: 3, color: .lightGray)
+//        tableView.withBorder(width: 3, color: .lightGray)
+        tableView.withBorder(width: 2, color: UIColor.init(white: 0, alpha: 0.1))
         tableView.layer.cornerRadius = 10
         
         setupUI()
         setupTapGesture()
+        
+        fetchComments(classID: course.classID ?? "")
+        fetchReactions(classID: course.classID ?? "")
     }
     
     
-         var course: Course? {
-              didSet {
-                navigationItem.title = course?.className
-                fetchComments(classID: course?.classID ?? "")
-                fetchReactions(classID: course?.classID ?? "")
-              }
-          }
+//         var course: Course? {
+//              didSet {
+//                navigationItem.title = course?.className
+//                fetchComments(classID: course?.classID ?? "")
+//                fetchReactions(classID: course?.classID ?? "")
+//              }
+//          }
     
     var totalReactionCount : Double = 0
     var laughCount : Double = 0
@@ -328,7 +425,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
             return
         }
         
-            var laughHeight = CGFloat(self.laughCount/self.totalReactionCount * 240 - 1)
+            var laughHeight = CGFloat(self.laughCount/self.totalReactionCount * emojibarHeight - 1)
 //            if laughHeight > 239 {
 //                laughHeight = 239
 //            } else
@@ -350,7 +447,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
 
 
             
-            var smileHeight = CGFloat(self.smileCount/self.totalReactionCount * 240 - 1)
+            var smileHeight = CGFloat(self.smileCount/self.totalReactionCount * emojibarHeight - 1)
 //            if smileHeight > 239 {
 //                smileHeight = 239
 //            } else
@@ -367,7 +464,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
 
 
 
-            var sadHeight = CGFloat(self.sadCount/self.totalReactionCount * 240 - 1)
+            var sadHeight = CGFloat(self.sadCount/self.totalReactionCount * emojibarHeight - 1)
 //            if sadHeight > 239 {
 //                sadHeight = 239
 //            } else
@@ -383,9 +480,9 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         
  
 
-        laughNum.text = "\(laughCount)"
-        smileNum.text = "\(smileCount)"
-        sadNum.text = "\(sadCount)"
+        laughNum.text = "\(Int(laughCount))"
+        smileNum.text = "\(Int(smileCount))"
+        sadNum.text = "\(Int(sadCount))"
 
         
     }
@@ -404,11 +501,14 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
                 querySnapshot?.documentChanges.forEach({ (change) in
                     if change.type == .added {
                         let dict = change.document.data()
-    //                    self.comments.append(Comment(dictionary: dict))
-                        self.comments.insert(Comment(dictionary: dict), at: 0)
+                        self.comments.append(Comment(dictionary: dict))
+//                        self.comments.insert(Comment(dictionary: dict), at: 0)
                     }
                 })
                 self.tableView.reloadData()
+                if self.comments.count != 0 {
+                    self.tableView.scrollToRow(at: [0, self.comments.count - 1], at: .bottom, animated: false)
+                }
             })
         }
         
@@ -438,21 +538,90 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
 //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UITableViewCell
-         let comment = comments[indexPath.item]
-         
-         let formatter = DateFormatter()
-         formatter.dateFormat = "MM-dd hh:mma" // "a" prints "pm" or "am"
-         let timeString = formatter.string(from: comment.timestamp.dateValue()) // "12 AM"
-         
-         let attiText = NSMutableAttributedString(string: timeString, attributes: [.foregroundColor : UIColor.blue])
-         attiText.append(NSMutableAttributedString(string: " \(comment.text)"))
-         cell.textLabel?.attributedText = attiText
-         cell.textLabel?.numberOfLines = 0
-         return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UITableViewCell
+        let comment = comments[indexPath.item]
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd hh:mma" // "a" prints "pm" or "am"
+        let timeString = formatter.string(from: comment.timestamp.dateValue()) // "12 AM"
+        
+//        var foreGroundColor = UIColor(red: 0.361, green: 0.361, blue: 0.361, alpha: 1)
+        
+        var foreGroundColor = UIColor(red: 0.184, green: 0.502, blue: 0.929, alpha: 1)
+        
+//        if let uid = Auth.auth().currentUser?.uid {
+//            if comments[indexPath.row].fromId == uid {
+//                foreGroundColor = UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1)
+//            } else {
+//                foreGroundColor = UIColor(red: 0.361, green: 0.361, blue: 0.361, alpha: 1)
+//            }
+//        }
+        
+        let attiText = NSMutableAttributedString(string: timeString, attributes: [.foregroundColor : foreGroundColor, .font: UIFont.systemFont(ofSize: 17)])
+        attiText.append(NSMutableAttributedString(string: "   \(comment.text)" , attributes: [.font: UIFont.systemFont(ofSize: 17)]))
+        cell.textLabel?.attributedText = attiText
+        cell.textLabel?.numberOfLines = 0
+        return cell
      }
     
     
-    
+    let upimageHud = JGProgressHUD(style: .dark)
+
     
 }
+
+extension InstructorHomeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let selectedImage = info[.originalImage] as? UIImage
+//        registerCampusViewModel.bindableImage.value = image
+//        registerCampusViewModel.checkRegisterInputValid() //checkfromvalidity gets called when text changes, not when image selected
+        homeAltNavBar.userProfileImageView.image = selectedImage?.withRenderingMode(.alwaysOriginal)
+        dismiss(animated: true)
+        
+        let filename = UUID().uuidString
+        let ref = Storage.storage().reference(withPath: "\(filename)")
+
+        guard let uploadData = selectedImage?.jpegData(compressionQuality: 0.75) else {return}
+        
+//        let hud = JGProgressHUD(style: .dark)
+//        hud.textLabel.text = "uploading image..."
+//        hud.show(in: view)
+        upimageHud.textLabel.text = "uploading image..."
+        upimageHud.show(in: view) //show hud when click save
+
+        ref.putData(uploadData, metadata: nil, completion: { (_, err) in
+            if let err = err {
+                return
+            }
+//            print("uploaded image to storage")
+            _ = ref.downloadURL(completion: { (url, err) in
+                if let err = err {
+                    return
+                }
+
+                let imageUrl = url?.absoluteString ?? ""
+                self.saveProfileFirestore(imageUrl: imageUrl)
+            })
+        })
+        
+        
+        
+    }
+    
+    
+    func saveProfileFirestore(imageUrl: String) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+
+        Firestore.firestore().collection("users").document(uid).updateData(["imageUrl": imageUrl]) { (err) in
+            self.upimageHud.dismiss()
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+}
+

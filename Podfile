@@ -11,6 +11,8 @@ pod 'Firebase/Firestore’
 pod 'Firebase/Auth’
 pod 'Firebase/Storage’
 pod 'Firebase/Core’
+pod 'Firebase/RemoteConfig'
+pod 'Firebase/Analytics'
 pod 'SDWebImage'
 pod 'JGProgressHUD'
   

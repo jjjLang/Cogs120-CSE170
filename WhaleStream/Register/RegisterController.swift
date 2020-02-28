@@ -81,21 +81,40 @@ class RegisterController: UIViewController {
          return tf
      }()
     
-    lazy var isStudentTextField: UITextField = {
-        let tf = CustomTextField(padding: 16, height: 50)
-        tf.placeholder = "I am a student"
-        tf.backgroundColor = .white
-        tf.addTarget(self, action: #selector(handleIsStudent), for: .touchDown)
-        return tf
+//    lazy var isStudentTextField: UITextField = {
+//        let tf = CustomTextField(padding: 16, height: 50)
+//        tf.placeholder = "I am a student"
+//        tf.backgroundColor = .white
+//        tf.addTarget(self, action: #selector(handleIsStudent), for: .touchDown)
+//        return tf
+//    }()
+    
+//    var isStudent = true
+    
+    let studentInstructorChoice = ["Student", "Instructor"]
+    
+    lazy var segmentedControl: UISegmentedControl = {
+        let control = CustomSegmentedControl(items: studentInstructorChoice)
+        control.selectedSegmentIndex = 0
+        control.addTarget(self, action: #selector(handleSegmentValueChanged), for: .valueChanged)
+        return control
     }()
     
-    var isStudent = true
-    
-    @objc fileprivate func handleIsStudent() {
-        isStudentTextField.text = isStudent ? "I am an instructor" : "I am a student"
-        isStudent = !isStudent
-        registerViewModel.isStudent = isStudent
+    @objc fileprivate func handleSegmentValueChanged(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            registerViewModel.isStudent = true
+        default:
+            registerViewModel.isStudent = false
+        }
     }
+    
+    
+//    @objc fileprivate func handleIsStudent() {
+//        isStudentTextField.text = isStudent ? "I am an instructor" : "I am a student"
+//        isStudent = !isStudent
+//        registerViewModel.isStudent = isStudent
+//    }
     
 //
     //captures sender as parameter
@@ -180,7 +199,8 @@ class RegisterController: UIViewController {
         fullNameTextField,
         emailTextField,
         passwordTextField,
-        isStudentTextField,
+//        isStudentTextField,
+        segmentedControl,
         registerButton
         ])
         sv.axis = .vertical
@@ -190,7 +210,7 @@ class RegisterController: UIViewController {
     }()
     
     lazy var overallStackView = UIStackView(arrangedSubviews: [
-//        selectPhotoButton.withHeight(275),
+        selectPhotoButton.withHeight(275),
         verticalStackView
         ])
     
@@ -207,6 +227,9 @@ class RegisterController: UIViewController {
         setupTapGesture()
         
         setupRegistrationViewModelObserver()
+        
+        segmentedControl.layer.cornerRadius = 15
+        segmentedControl.layer.masksToBounds = true
     }
     
     
@@ -299,7 +322,7 @@ class RegisterController: UIViewController {
     
     
     fileprivate func setupLayout() {
-        navigationController?.isNavigationBarHidden = false //hides navigationbar on top
+        navigationController?.isNavigationBarHidden = true //hides navigationbar on top
         view.addSubview(overallStackView)
         overallStackView.axis = .vertical
 //        selectPhotoButton.widthAnchor.constraint(equalToConstant: 275).isActive = true

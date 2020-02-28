@@ -276,9 +276,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         viewFullButton.isHidden = true
         
-        
-        
-        
 //        overallStackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
     }
     

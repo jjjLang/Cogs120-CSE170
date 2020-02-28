@@ -8,9 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5E412CB5702AEB3A1EAB02EC /* Pods_WhaleStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D50ACC4461A456C598EB5B /* Pods_WhaleStream.framework */; };
+		E40955E924073300009D697E /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = E40955E824073300009D697E /* RemoteConfigDefaults.plist */; };
+		E40955EB240735D8009D697E /* RCKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40955EA240735D8009D697E /* RCKey.swift */; };
+		E40955ED24073667009D697E /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40955EC24073667009D697E /* RemoteConfigManager.swift */; };
+		E40955EF240738F8009D697E /* HomeAltController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40955EE240738F8009D697E /* HomeAltController.swift */; };
 		E40CB20423F51F7900A30FA7 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CB20323F51F7900A30FA7 /* RegisterController.swift */; };
 		E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */; };
 		E40CB20823F522B100A30FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */; };
+		E430506C2408A4B70050EE29 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E430506B2408A4B70050EE29 /* CustomSegmentedControl.swift */; };
+		E430506E2408B3FE0050EE29 /* GoBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E430506D2408B3FE0050EE29 /* GoBackButton.swift */; };
 		E4368A5823E7FF5600C56511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A5723E7FF5600C56511 /* AppDelegate.swift */; };
 		E4368A5A23E7FF5600C56511 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A5923E7FF5600C56511 /* SceneDelegate.swift */; };
 		E4368A5F23E7FF5600C56511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4368A5D23E7FF5600C56511 /* Main.storyboard */; };
@@ -18,6 +24,8 @@
 		E4368A6423E7FF5F00C56511 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4368A6223E7FF5F00C56511 /* LaunchScreen.storyboard */; };
 		E4368A6C23E800B500C56511 /* AddClassCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */; };
 		E436A84D23F5CFA9001D2A6A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E436A84C23F5CFA9001D2A6A /* User.swift */; };
+		E463AC7F240851F9001A90CF /* HomeAltNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463AC7E240851F9001A90CF /* HomeAltNavBar.swift */; };
+		E463AC8124087E6D001A90CF /* InstructorHomeControllerCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463AC8024087E6D001A90CF /* InstructorHomeControllerCopy.swift */; };
 		E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */; };
 		E4BCD7B823EBA9EF0065B6A7 /* CustomAddClassLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */; };
 		E4BCD7BB23EBC3A70065B6A7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */; };
@@ -48,9 +56,15 @@
 		11A5C4E14FA4B45BE5D100DC /* Pods-WhaleStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhaleStream.debug.xcconfig"; path = "Target Support Files/Pods-WhaleStream/Pods-WhaleStream.debug.xcconfig"; sourceTree = "<group>"; };
 		37D50ACC4461A456C598EB5B /* Pods_WhaleStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhaleStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A8A72260263A1F16B0FE5B /* Pods-WhaleStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhaleStream.release.xcconfig"; path = "Target Support Files/Pods-WhaleStream/Pods-WhaleStream.release.xcconfig"; sourceTree = "<group>"; };
+		E40955E824073300009D697E /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
+		E40955EA240735D8009D697E /* RCKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCKey.swift; sourceTree = "<group>"; };
+		E40955EC24073667009D697E /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
+		E40955EE240738F8009D697E /* HomeAltController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAltController.swift; sourceTree = "<group>"; };
 		E40CB20323F51F7900A30FA7 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E430506B2408A4B70050EE29 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		E430506D2408B3FE0050EE29 /* GoBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoBackButton.swift; sourceTree = "<group>"; };
 		E4368A5423E7FF5600C56511 /* WhaleStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhaleStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4368A5723E7FF5600C56511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4368A5923E7FF5600C56511 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +74,8 @@
 		E4368A6523E7FF5F00C56511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4368A6B23E800B500C56511 /* AddClassCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassCollectionViewController.swift; sourceTree = "<group>"; };
 		E436A84C23F5CFA9001D2A6A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E463AC7E240851F9001A90CF /* HomeAltNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAltNavBar.swift; sourceTree = "<group>"; };
+		E463AC8024087E6D001A90CF /* InstructorHomeControllerCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorHomeControllerCopy.swift; sourceTree = "<group>"; };
 		E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorHomeController.swift; sourceTree = "<group>"; };
 		E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddClassLabel.swift; sourceTree = "<group>"; };
 		E4BCD7BA23EBC3A70065B6A7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -105,6 +121,7 @@
 				E40CB20523F5211800A30FA7 /* RegisterViewModel.swift */,
 				E4C8084823F644DF006E8162 /* LoginController.swift */,
 				E4C8084A23F6451F006E8162 /* LoginViewModel.swift */,
+				E430506B2408A4B70050EE29 /* CustomSegmentedControl.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -141,6 +158,9 @@
 				E4368A6223E7FF5F00C56511 /* LaunchScreen.storyboard */,
 				E4368A6523E7FF5F00C56511 /* Info.plist */,
 				E40CB20723F522B100A30FA7 /* GoogleService-Info.plist */,
+				E40955E824073300009D697E /* RemoteConfigDefaults.plist */,
+				E40955EA240735D8009D697E /* RCKey.swift */,
+				E40955EC24073667009D697E /* RemoteConfigManager.swift */,
 				E4D5FDF123E9F50F00E9C7AE /* Utils */,
 			);
 			path = WhaleStream;
@@ -155,6 +175,9 @@
 				E4B2529223ECE2FE0099F536 /* InstructorHomeController.swift */,
 				E4C8084C23F65F8B006E8162 /* CommentController.swift */,
 				E4C8084E23F67451006E8162 /* FullCommentViewController.swift */,
+				E40955EE240738F8009D697E /* HomeAltController.swift */,
+				E463AC7E240851F9001A90CF /* HomeAltNavBar.swift */,
+				E463AC8024087E6D001A90CF /* InstructorHomeControllerCopy.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -167,6 +190,7 @@
 				E4D5FE1D23EA061200E9C7AE /* ClassSearchController.swift */,
 				E4D5FE1F23EA06DB00E9C7AE /* ClassSearchCell.swift */,
 				E4BCD7B723EBA9EF0065B6A7 /* CustomAddClassLabel.swift */,
+				E430506D2408B3FE0050EE29 /* GoBackButton.swift */,
 			);
 			path = Addclass;
 			sourceTree = "<group>";
@@ -276,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4368A6423E7FF5F00C56511 /* LaunchScreen.storyboard in Resources */,
+				E40955E924073300009D697E /* RemoteConfigDefaults.plist in Resources */,
 				E40CB20823F522B100A30FA7 /* GoogleService-Info.plist in Resources */,
 				E4368A6123E7FF5F00C56511 /* Assets.xcassets in Resources */,
 				E4368A5F23E7FF5600C56511 /* Main.storyboard in Resources */,
@@ -334,28 +359,35 @@
 				E4D5FE1523E9F5C900E9C7AE /* Bindable.swift in Sources */,
 				E4D5FE1123E9F5C900E9C7AE /* CustomImagePickerController.swift in Sources */,
 				E4D5FE1423E9F5C900E9C7AE /* CustomImageView.swift in Sources */,
+				E40955EB240735D8009D697E /* RCKey.swift in Sources */,
 				E4C8084923F644DF006E8162 /* LoginController.swift in Sources */,
 				E436A84D23F5CFA9001D2A6A /* User.swift in Sources */,
 				E40CB20423F51F7900A30FA7 /* RegisterController.swift in Sources */,
 				E4D5FE1C23E9F9FC00E9C7AE /* Course.swift in Sources */,
 				E4D5FDF023E9F2AC00E9C7AE /* AddClassCell.swift in Sources */,
 				E4C8084B23F6451F006E8162 /* LoginViewModel.swift in Sources */,
+				E40955EF240738F8009D697E /* HomeAltController.swift in Sources */,
 				E4B2529323ECE2FE0099F536 /* InstructorHomeController.swift in Sources */,
+				E430506E2408B3FE0050EE29 /* GoBackButton.swift in Sources */,
 				E4D5FE1923E9F5C900E9C7AE /* BasicExtensions.swift in Sources */,
 				E4D5FE1E23EA061200E9C7AE /* ClassSearchController.swift in Sources */,
 				E4368A6C23E800B500C56511 /* AddClassCollectionViewController.swift in Sources */,
+				E463AC8124087E6D001A90CF /* InstructorHomeControllerCopy.swift in Sources */,
 				E4BCD7B823EBA9EF0065B6A7 /* CustomAddClassLabel.swift in Sources */,
 				E4D5FE2023EA06DB00E9C7AE /* ClassSearchCell.swift in Sources */,
 				E4D5FE1223E9F5C900E9C7AE /* ListCell.swift in Sources */,
+				E40955ED24073667009D697E /* RemoteConfigManager.swift in Sources */,
 				E4368A5823E7FF5600C56511 /* AppDelegate.swift in Sources */,
 				E4BCD7BD23EBC6020065B6A7 /* EmojiButton.swift in Sources */,
 				E4368A5A23E7FF5600C56511 /* SceneDelegate.swift in Sources */,
+				E430506C2408A4B70050EE29 /* CustomSegmentedControl.swift in Sources */,
 				E4BCD7BF23EBD6D20065B6A7 /* CustomTextField.swift in Sources */,
 				E4D5FE1323E9F5C900E9C7AE /* HeaderController.swift in Sources */,
 				E4C8084D23F65F8B006E8162 /* CommentController.swift in Sources */,
 				E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */,
 				E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */,
 				E4D5FE1623E9F5C900E9C7AE /* HeaderFooterController.swift in Sources */,
+				E463AC7F240851F9001A90CF /* HomeAltNavBar.swift in Sources */,
 				E4FDD74523FF512100FE9337 /* Comment.swift in Sources */,
 				E4D5FE1823E9F5C900E9C7AE /* CircularImageView.swift in Sources */,
 				E4C8084F23F67451006E8162 /* FullCommentViewController.swift in Sources */,
@@ -506,6 +538,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 783VTM2647;
 				INFOPLIST_FILE = WhaleStream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -526,6 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 783VTM2647;
 				INFOPLIST_FILE = WhaleStream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

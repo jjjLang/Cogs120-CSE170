@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class AddClassCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ClassSearchControllerDelegate, UINavigationControllerDelegate, LoginControllerDelegate {
+class AddClassCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ClassSearchControllerDelegate, UINavigationControllerDelegate, LoginControllerDelegate, AddClassCellDelegate {
 
     let cellId = "cellId"
     
@@ -106,39 +106,103 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AddClassCell
+        cell.delegate = self
         if indexPath.item == courses.count {
              let attributedText = NSMutableAttributedString(string: "Add Class", attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
             cell.selectClassLabel.attributedText = attributedText
+            cell.moreButton.isHidden = true
         } else {
             cell.course = courses[indexPath.item]
+            cell.moreButton.isHidden = false
+
         }
         return cell
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 200)
+        return .init(width: view.frame.width, height: 170)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if indexPath.item == courses.count {
+//            handleAddSearch()
+//            return
+//        }
+//
+//        if user?.isStudent == true {
+////            let shouldCommentLocationDown = RemoteConfigManager.value(forKey: RCKey.commentLocationDown)
+//            let shouldCommentLocationDown = "true"
+//            if shouldCommentLocationDown == "false" {
+//                let home = HomeController()
+//                home.course = courses[indexPath.item]
+//                navigationController?.pushViewController(home, animated: true)
+//            } else {
+//                let home = HomeAltController(course: courses[indexPath.item], userProfileUrl: user?.imageUrl ?? "")
+////                home.course = courses[indexPath.item]
+//                navigationController?.pushViewController(home, animated: true)
+//            }
+////            home.barColor =
+//            return
+//        } else {
+//            let home = InstructorHomeController(course: courses[indexPath.item], userProfileUrl: user?.imageUrl ?? "")
+////            home.course = courses[indexPath.item]
+//            navigationController?.pushViewController(home, animated: true)
+//        }
+//
+//
+//    }
+    
+    func deleteClass(for cell: AddClassCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let reportAction = UIAlertAction(title: "Remove yourself from this class", style: .default) { (_) in
+            let courseID = self.courses.remove(at: indexPath.item).classID
+            guard let currentUID = Auth.auth().currentUser?.uid else {return}
+        
+            if let classIndex = self.user?.classes.firstIndex(of: courseID ?? "") {
+                self.user?.classes.remove(at: classIndex)
+                Firestore.firestore().collection("users").document(currentUID).updateData(["classes": self.user?.classes])
+                self.courses = [Course]()
+                self.fetchClasses()
+            }
+
+
+//            self.collectionView.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        actionSheet.addAction(reportAction)
+        actionSheet.addAction(cancelAction)
+        present(actionSheet,animated: true,completion: nil)
+    }
+    
+    func tapClass(for cell: AddClassCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
         if indexPath.item == courses.count {
             handleAddSearch()
             return
         }
-        
         if user?.isStudent == true {
-            let home = HomeController()
+            let shouldCommentLocationDown = RemoteConfigManager.value(forKey: RCKey.changeAddCommentLogic)
+//            let shouldCommentLocationDown = "true"
+            if shouldCommentLocationDown == "false" {
+                let home = HomeController()
+                home.course = courses[indexPath.item]
+                navigationController?.pushViewController(home, animated: true)
+            } else {
+                let home = HomeAltController(course: courses[indexPath.item], userProfileUrl: user?.imageUrl ?? "")
+//                home.course = courses[indexPath.item]
+                navigationController?.pushViewController(home, animated: true)
+            }
 //            home.barColor =
-            home.course = courses[indexPath.item]
-            navigationController?.pushViewController(home, animated: true)
             return
         } else {
-            let home = InstructorHomeController()
-            home.course = courses[indexPath.item]
+            let home = InstructorHomeController(course: courses[indexPath.item], userProfileUrl: user?.imageUrl ?? "")
+//            home.course = courses[indexPath.item]
             navigationController?.pushViewController(home, animated: true)
         }
-
-
     }
     
     func selectCourse(course: Course) {
@@ -159,6 +223,7 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
     fileprivate func handleAddSearch() {
         if user?.isStudent == true {
             let classSearchController = ClassSearchController(collectionViewLayout: UICollectionViewFlowLayout())
+            classSearchController.alreadyHaveCourses = Set<String>(user?.classes ?? [String]())
             let navController = UINavigationController(rootViewController: classSearchController)
             navController.modalPresentationStyle = .fullScreen
             classSearchController.delegate = self
