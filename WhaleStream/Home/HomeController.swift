@@ -54,6 +54,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let dict = ["text": comment, "fromId": currentUID, "timestamp": Timestamp(date: Date())] as [String:Any]
             Firestore.firestore().collection("classComments").document(course?.classID ?? "").collection("comments").addDocument(data: dict)
             
+            Analytics.logEvent("send_comment", parameters: nil)
+            
+            Analytics.logEvent("send_comment_A", parameters: nil)
+
+
+            
     //        tableView.reloadData()
         }
     

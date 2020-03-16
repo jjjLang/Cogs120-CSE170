@@ -12,7 +12,7 @@ import Firebase
 import JGProgressHUD
 
 
-class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentControllerDelegate, UITextFieldDelegate, HomeAltNavBarDelegate {
+class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentControllerDelegate, UITextFieldDelegate, HomeAltNavBarDelegate, UITextViewDelegate {
     let cellID = "cellId"
     let tableView = UITableView()
     
@@ -85,6 +85,9 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
                 self.tableView.scrollToRow(at: [0, self.comments.count - 1], at: .bottom, animated: false)
             }
             
+            Analytics.logEvent("send_comment", parameters: nil)
+            Analytics.logEvent("send_comment_B", parameters: nil)
+
     //        tableView.reloadData()
         }
     
@@ -155,7 +158,7 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
         switch button {
         case laughButton:
             if laughButton.backgroundColor == lightYellow {
-                laughButton.backgroundColor = UIColor.rgb(red: 253, green: 93, blue: 93)
+                laughButton.backgroundColor = UIColor.rgb(red: 39, green: 174, blue: 96)
 
                 smileButton.backgroundColor = lightYellow
                 sadButton.backgroundColor = lightYellow
@@ -181,7 +184,8 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
             }
         default:
             if sadButton.backgroundColor == lightYellow {
-                sadButton.backgroundColor = UIColor.rgb(red: 39, green: 174, blue: 96)
+                sadButton.backgroundColor = UIColor.rgb(red: 253, green: 93, blue: 93)
+
                 laughButton.backgroundColor = lightYellow
                 smileButton.backgroundColor = lightYellow
                 previousReactionID = reactionID
@@ -208,9 +212,9 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     let emojiIntructionLabel: UILabel = {
 //        let l = UILabel(text: "React to lecture", font:  UIFont.boldSystemFont(ofSize: 24), textColor: UIColor.rgb(red: 249, green: 165, blue: 85), textAlignment: .center, numberOfLines: 0)
-//        let l = UILabel(text: "React to lecture", font:  UIFont.italicSystemFont(ofSize: 24), textColor: UIColor.rgb(red: 252, green: 108, blue: 111), textAlignment: .center, numberOfLines: 0)
+        let l = UILabel(text: "React to lecture", font:  UIFont.italicSystemFont(ofSize: 24), textColor: UIColor.rgb(red: 252, green: 108, blue: 111), textAlignment: .center, numberOfLines: 0)
         
-        let l = UILabel(text: "React to lecture", font:  UIFont.italicSystemFont(ofSize: 20), textColor: UIColor.purplePink, textAlignment: .center, numberOfLines: 0)
+//        let l = UILabel(text: "React to lecture", font:  UIFont.italicSystemFont(ofSize: 20), textColor: UIColor.purplePink, textAlignment: .center, numberOfLines: 0)
 
 
         return l
@@ -218,7 +222,7 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
     
 
     
-//    let commentInstruction = UILabel(text: "Comments on the materials", font: .systemFont(ofSize: 26), numberOfLines: 0)
+    let commentInstruction = UILabel(text: "In class comments", font:  UIFont.italicSystemFont(ofSize: 24), textColor: UIColor.rgb(red: 252, green: 108, blue: 111), textAlignment: .center, numberOfLines: 0)
     
     lazy var commentTextField : UITextField = {
        let tf = CustomTextField(padding: 16, height: 45)
@@ -231,6 +235,7 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
 //        tf.addTarget(self, action: #selector(handleComment), for: .touchDown)
         tf.returnKeyType = .send
         tf.delegate = self
+
         return tf
     }()
     
@@ -240,13 +245,22 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
 //        navigationController?.pushViewController(commentController, animated: true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        didSendComment(comment: textField.text ?? "")
-        textField.text = nil
-        textField.resignFirstResponder()
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        didSendComment(comment: textField.text ?? "")
+//        textField.text = nil
+//        textField.resignFirstResponder()
+//        return true
+//    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            didSendComment(comment: textView.text ?? "")
+            textView.text = nil
+            textView.resignFirstResponder()
+            return false
+        }
         return true
     }
-    
 
     
     
@@ -336,6 +350,8 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
         view.backgroundColor = .white
 //        view.addSubview(overallStackView)
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .interactive
+        tableView.backgroundColor = .white
         
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isHidden = true
@@ -361,8 +377,8 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
 //        view.addSubview(helpLabel)
 //        helpLabel.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
         
-//        view.addSubview(commentInstruction)
-//        commentInstruction.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+        view.addSubview(commentInstruction)
+        commentInstruction.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
         
  
         
@@ -370,15 +386,15 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
 //        historyCommentInstruction.anchor(top: commentTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16),size: .init(width: 0, height: 50))
         
         view.addSubview(tableView)
-        tableView.anchor(top: emojiStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 43, left: 31, bottom: 0, right: 31))
+        tableView.anchor(top: commentInstruction.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 31, bottom: 85, right: 31))
         
         
-        view.addSubview(commentTextField)
-        commentTextField.anchor(top: tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 32, bottom: 0, right: 32), size: .init(width: 0, height: 45))
+//        view.addSubview(commentTextField)
+//        commentTextField.anchor(top: tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 32, bottom: 0, right: 32), size: .init(width: 0, height: 45))
         
         
-        view.addSubview(viewFullButton)
-        viewFullButton.anchor(top: commentTextField.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16), size: .init(width: 180, height: 30))
+//        view.addSubview(viewFullButton)
+//        viewFullButton.anchor(top: tableView.bottomAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16), size: .init(width: 180, height: 30))
         
         
         viewFullButton.isHidden = true
@@ -443,6 +459,31 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     
+    
+    
+    
+    //input accessory view
+    override var inputAccessoryView: UIView? {
+        get {
+            return kbInputView
+        }
+    }
+    
+    //whenever user interact with ui element, that element become first responder, canBecomefirstresponder lets self.view can become first responders so from the documentation: When the receiver subsequently becomes the first responder, the responder infrastructure attaches the view to the appropriate input view before displaying it, ,if you set canbecomefirst reponder return false, accessroyr view wont show up, self.view instantly becomes the first responder when first switch to this view, then responder infrastructure attaches the redview to the input view (keyboard ?)
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    
+    lazy var kbInputView: InputAccessoryView = {
+        let kbi = InputAccessoryView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 60))
+        kbi.placeHolderLabel.text = "Add comment"
+//        kbi.sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        kbi.textView.delegate = self
+        return kbi
+    }()
+    
+    
 
     
     
@@ -452,7 +493,7 @@ class HomeAltController: UIViewController, UITableViewDelegate, UITableViewDataS
            // if keyboard size is not available for some reason, dont do anything
            return
         }
-          self.view.frame.origin.y = 0 - keyboardSize.height
+          self.view.frame.origin.y = 0 - keyboardSize.height + 50
     }
     
     @objc fileprivate func keyboardWillHide(notification: NSNotification) {

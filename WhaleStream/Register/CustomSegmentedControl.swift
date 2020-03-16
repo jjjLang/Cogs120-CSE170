@@ -12,7 +12,7 @@ open class CustomSegmentedControl: UISegmentedControl {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 30
+        layer.cornerRadius = 9
         layer.masksToBounds = true
         clipsToBounds = true
 //        layer.borderWidth = 1.0

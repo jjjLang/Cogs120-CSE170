@@ -108,7 +108,8 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AddClassCell
         cell.delegate = self
         if indexPath.item == courses.count {
-             let attributedText = NSMutableAttributedString(string: "Add Class", attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
+            let cellTitle = user?.isStudent ?? true ? "Add Class" : "Create Class"
+             let attributedText = NSMutableAttributedString(string: cellTitle, attributes: [.font: UIFont.boldSystemFont(ofSize: 36)])
             cell.selectClassLabel.attributedText = attributedText
             cell.moreButton.isHidden = true
         } else {
@@ -170,8 +171,37 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
 
 //            self.collectionView.reloadData()
         }
+        
+        let modifyAction = UIAlertAction(title: "Modify settings of thie class", style: .default) { (_) in
+            let ac = UIAlertController(title: "Modify Class Info", message: nil, preferredStyle: .alert)
+                          ac.addTextField { (tf) in
+                              tf.placeholder = "change Course Name/Number"
+                              tf.autocapitalizationType = .allCharacters
+                          }
+                          ac.addTextField { (tf) in
+                              tf.placeholder = "change passcode"
+                              tf.autocapitalizationType = .words
+                          }
+                       
+                          let addAction = UIAlertAction(title: "Add", style: .default) { [unowned ac] _ in
+                           let className = ac.textFields![0].text ?? ""
+                           let code = ac.textFields![1].text ?? ""
+                           self.instructorAddClassToFireStore(className: className, code: code)
+                          }
+                          let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                          ac.addAction(addAction)
+                          ac.addAction(cancelAction)
+
+            self.present(ac, animated: true)
+                   
+        }
+        
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+//        if user?.isStudent == false {
+//            actionSheet.addAction(modifyAction)
+//        }
         
         actionSheet.addAction(reportAction)
         actionSheet.addAction(cancelAction)
@@ -186,14 +216,16 @@ class AddClassCollectionViewController: UICollectionViewController, UICollection
         }
         if user?.isStudent == true {
             let shouldCommentLocationDown = RemoteConfigManager.value(forKey: RCKey.changeAddCommentLogic)
-//            let shouldCommentLocationDown = "true"
+//            let shouldCommentLocationDown = "false"
             if shouldCommentLocationDown == "false" {
                 let home = HomeController()
                 home.course = courses[indexPath.item]
+                Analytics.logEvent("comment_page_A", parameters: nil)
                 navigationController?.pushViewController(home, animated: true)
             } else {
                 let home = HomeAltController(course: courses[indexPath.item], userProfileUrl: user?.imageUrl ?? "")
 //                home.course = courses[indexPath.item]
+                Analytics.logEvent("comment_page_B", parameters: nil)
                 navigationController?.pushViewController(home, animated: true)
             }
 //            home.barColor =

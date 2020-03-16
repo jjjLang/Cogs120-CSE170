@@ -99,6 +99,7 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
 //            return
 //        }
         
+        
         let ac = UIAlertController(title: "Enter passcode", message: nil, preferredStyle: .alert)
         ac.addTextField { (tf) in
             tf.placeholder = "Passcode"
@@ -106,8 +107,12 @@ class ClassSearchController: UICollectionViewController, UICollectionViewDelegat
         }
         
         let addAction = UIAlertAction(title: "Confirm", style: .default) { [unowned ac] _ in
+            let cell = collectionView.cellForItem(at: indexPath) as! ClassSearchCell
+
             let passcode = ac.textFields![0].text ?? ""
-            if passcode == self.courses[indexPath.item].code {
+
+//            if passcode == self.courses[indexPath.item].code {
+            if passcode == cell.course?.code {
                 let courseName = self.filteredCourses[indexPath.item]
                 self.delegate?.selectCourse(course: courseName)
                 self.dismiss(animated: true)

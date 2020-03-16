@@ -33,18 +33,20 @@ class RegisterController: UIViewController {
     
     let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Profile pic", for: .normal)
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
-        button.layer.opacity = 1
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
+//        button.setTitle("Profile pic", for: .normal)
+        button.setImage(UIImage(named: "plus_photo") , for: .normal)
+        button.tintColor = .purplePink
+//        button.titleLabel?.numberOfLines = 0
+//        button.titleLabel?.textAlignment = .center
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+//        button.layer.opacity = 1
+//        button.backgroundColor = .white
+//        button.setTitleColor(.black, for: .normal)
 //        button.heightAnchor.constraint(equalToConstant: 275).isActive = true
-        button.layer.cornerRadius = 16
+//        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
-        button.imageView?.contentMode = .scaleAspectFill
-        button.clipsToBounds = true
+//        button.imageView?.contentMode = .scaleAspectFit
+//        button.clipsToBounds = true
         return button
     }()
     
@@ -209,10 +211,16 @@ class RegisterController: UIViewController {
         return sv
     }()
     
-    lazy var overallStackView = UIStackView(arrangedSubviews: [
-        selectPhotoButton.withHeight(275),
-        verticalStackView
+    lazy var overallStackView : UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [
+//            selectPhotoButton.withHeight(140).withWidth(140),
+            verticalStackView
         ])
+//        sv.spacing = 20
+        return sv
+    }()
+    
+
     
     let gradientLayer = CAGradientLayer()
 
@@ -254,6 +262,10 @@ class RegisterController: UIViewController {
         }
         registerViewModel.bindableImage.observer = { [unowned self](image) in
             self.selectPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.selectPhotoButton.layer.cornerRadius = self.selectPhotoButton.frame.size.width/2 //sets the radius
+            self.selectPhotoButton.layer.masksToBounds = true //clips the mask to match the bounds do this when UIbutton has image
+            self.selectPhotoButton.layer.borderColor = UIColor.purplePink.cgColor //animatin color?
+            self.selectPhotoButton.layer.borderWidth = 3
         }
         registerViewModel.binadableShowRegisterHUD.observer = { [unowned self](isRegistering) in
             guard let isRegistering = isRegistering else {return}
@@ -323,12 +335,19 @@ class RegisterController: UIViewController {
     
     fileprivate func setupLayout() {
         navigationController?.isNavigationBarHidden = true //hides navigationbar on top
+        
+        
+        view.addSubview(selectPhotoButton)
+        
+        selectPhotoButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 140, left: 0, bottom: 0, right: 0), size: .init(width: 140, height: 140))
+        selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         view.addSubview(overallStackView)
         overallStackView.axis = .vertical
 //        selectPhotoButton.widthAnchor.constraint(equalToConstant: 275).isActive = true
         overallStackView.spacing = 8
-        overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
-        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        overallStackView.anchor(top: selectPhotoButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 26, left: 50, bottom: 0, right: 50))
+//        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
     }
     

@@ -19,7 +19,10 @@ struct RemoteConfigManager {
     }()
     
     
-    static func configure(expirationDuration: TimeInterval = 3600.0) {
+    
+    
+    static func configure(expirationDuration: TimeInterval = 0) {
+        remoteConfig.configSettings = RemoteConfigSettings(developerModeEnabled: true)
         remoteConfig.fetch(withExpirationDuration: expirationDuration) { (status, err) in
             if let err = err {
                 print(err.localizedDescription)

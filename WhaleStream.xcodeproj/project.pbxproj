@@ -49,6 +49,7 @@
 		E4D5FE1C23E9F9FC00E9C7AE /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */; };
 		E4D5FE1E23EA061200E9C7AE /* ClassSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1D23EA061200E9C7AE /* ClassSearchController.swift */; };
 		E4D5FE2023EA06DB00E9C7AE /* ClassSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5FE1F23EA06DB00E9C7AE /* ClassSearchCell.swift */; };
+		E4E7BE252411D7F400BB153A /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7BE242411D7F400BB153A /* InputAccessoryView.swift */; };
 		E4FDD74523FF512100FE9337 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDD74423FF512100FE9337 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		E4D5FE1B23E9F9FC00E9C7AE /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		E4D5FE1D23EA061200E9C7AE /* ClassSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSearchController.swift; sourceTree = "<group>"; };
 		E4D5FE1F23EA06DB00E9C7AE /* ClassSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSearchCell.swift; sourceTree = "<group>"; };
+		E4E7BE242411D7F400BB153A /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		E4FDD74423FF512100FE9337 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 				E40955EE240738F8009D697E /* HomeAltController.swift */,
 				E463AC7E240851F9001A90CF /* HomeAltNavBar.swift */,
 				E463AC8024087E6D001A90CF /* InstructorHomeControllerCopy.swift */,
+				E4E7BE242411D7F400BB153A /* InputAccessoryView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				E4C8084D23F65F8B006E8162 /* CommentController.swift in Sources */,
 				E4D5FE1023E9F5C900E9C7AE /* FirebaseExtensions.swift in Sources */,
 				E40CB20623F5211800A30FA7 /* RegisterViewModel.swift in Sources */,
+				E4E7BE252411D7F400BB153A /* InputAccessoryView.swift in Sources */,
 				E4D5FE1623E9F5C900E9C7AE /* HeaderFooterController.swift in Sources */,
 				E463AC7F240851F9001A90CF /* HomeAltNavBar.swift in Sources */,
 				E4FDD74523FF512100FE9337 /* Comment.swift in Sources */,
@@ -538,7 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 783VTM2647;
 				INFOPLIST_FILE = WhaleStream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -559,7 +563,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 783VTM2647;
 				INFOPLIST_FILE = WhaleStream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

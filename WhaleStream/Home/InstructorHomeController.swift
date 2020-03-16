@@ -49,7 +49,8 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         return b
     }()
     let laughBar : UIButton = {
-        let b = UIButton(backgroundColor: UIColor.rgb(red: 253, green: 93, blue: 93), opacity: 1)
+        let b = UIButton(backgroundColor: UIColor.rgb(red: 39, green: 174, blue: 96), opacity: 1)
+
         b.layer.cornerRadius = 20
         b.clipsToBounds = true
         return b
@@ -94,7 +95,7 @@ class InstructorHomeController: UIViewController, UITableViewDelegate, UITableVi
         return b
     }()
     let sadBar : UIButton = {
-        let b = UIButton(backgroundColor: UIColor.rgb(red: 39, green: 174, blue: 96), opacity: 1)
+        let b = UIButton(backgroundColor: UIColor.rgb(red: 253, green: 93, blue: 93), opacity: 1)
         b.layer.cornerRadius = 20
         b.clipsToBounds = true
         return b
